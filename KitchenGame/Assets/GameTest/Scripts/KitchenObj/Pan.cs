@@ -126,7 +126,7 @@ public class Pan : BasicObj
     public override void PickObjs()
     {
         base.PickObjs();
-        MC.ChangeState(MouseControl.State.HasPan);
+        MouseSFM.Instance.SwitchState(MouseState.HasPan);
         m_panState = PanState.Normal;
     }
 
@@ -147,7 +147,7 @@ public class Pan : BasicObj
 
     public override void PutObjs()
     {
-        GameObject obj = MC.PickObj;
+        GameObject obj = MouseSFM.Instance.PickObj;
         
         obj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
             OnComplete(() => {
@@ -161,16 +161,16 @@ public class Pan : BasicObj
                     _foodDic.Add(obj, cookTime);
                 }
 
-                MC.PickObj = null;
+                MouseSFM.Instance.PickObj = null;
             });
-        MC.ChangeState(MouseControl.State.Nothing);
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
 
     }
 
     public override void SendObjs(GameObject Obj)
     {
-        MC.PickObj.transform.parent = null;
-        MC.PickObj = null;
+        MouseSFM.Instance.PickObj.transform.parent = null;
+        MouseSFM.Instance.PickObj = null;
 
         GameController.Instance.PlayerPause();
 

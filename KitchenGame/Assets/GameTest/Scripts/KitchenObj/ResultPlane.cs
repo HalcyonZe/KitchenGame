@@ -34,14 +34,14 @@ public class ResultPlane : BasicObj
     }
 
     public override void PutObjs()
-    {        
-        MC.PickObj.transform.DOMove(this.transform.position + Vector3.up * 0.5f, 0.3f).
+    {
+        MouseSFM.Instance.PickObj.transform.DOMove(this.transform.position + Vector3.up * 0.5f, 0.3f).
             OnComplete(() => {
-                MC.PickObj.GetComponent<Rigidbody>().isKinematic = false;
-                MC.PickObj.GetComponent<Collider>().enabled = true;
-                MC.PickObj.transform.parent = this.transform;
-                MC.PickObj = null;
+                MouseSFM.Instance.PickObj.GetComponent<Rigidbody>().isKinematic = false;
+                MouseSFM.Instance.PickObj.GetComponent<Collider>().enabled = true;
+                MouseSFM.Instance.PickObj.transform.parent = this.transform;
+                MouseSFM.Instance.PickObj = null;
             });
-        MC.ChangeState(MouseControl.State.Nothing);
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 }

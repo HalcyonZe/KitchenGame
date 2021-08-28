@@ -22,19 +22,19 @@ public class Knifes : BasicObj
     {
         this.GetComponent<Rigidbody>().isKinematic = true;
         this.GetComponent<Collider>().enabled = false;
-        this.transform.DOMove(MC.transform.GetChild(0).position, 0.1f).
-                        OnComplete(() => {  
-                            MC.PickObj = this.gameObject;
-                            this.transform.parent = MC.transform;                            
+        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
+                        OnComplete(() => {
+                            MouseSFM.Instance.PickObj = this.gameObject;
+                            this.transform.parent = MouseSFM.Instance.transform;                            
                         });
         this.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f);
-        MC.ChangeState(MouseControl.State.HasTools);
+        MouseSFM.Instance.SwitchState(MouseState.HasTools);
     }
 
     public override void UseTools(GameObject Obj)
     {
-        MC.PickObj.transform.parent = null;
-        MC.PickObj = null;
+        MouseSFM.Instance.PickObj.transform.parent = null;
+        MouseSFM.Instance.PickObj = null;
 
         GameController.Instance.PlayerPause();
 

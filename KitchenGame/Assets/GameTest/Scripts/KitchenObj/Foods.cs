@@ -21,7 +21,7 @@ public class Foods : BasicObj
     public override void PickObjs()
     {       
         base.PickObjs();
-        MC.ChangeState(MouseControl.State.HasFoods);
+        MouseSFM.Instance.SwitchState(MouseState.HasFoods);
         this.gameObject.layer = LayerMask.NameToLayer("Foods");
     }
 
