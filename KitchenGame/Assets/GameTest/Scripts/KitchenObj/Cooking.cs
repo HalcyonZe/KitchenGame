@@ -35,20 +35,20 @@ public class Cooking : BasicObj
         this.GetComponent<Rigidbody>().isKinematic = true;
         this.GetComponent<Collider>().enabled = false;
 
-        this.transform.DOMove(MC.transform.GetChild(0).position, 0.1f).
+        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
                         OnComplete(() => {
-                            MC.PickObj = this.gameObject;
-                            this.transform.parent = MC.transform;
+                            MouseSFM.Instance.PickObj = this.gameObject;
+                            this.transform.parent = MouseSFM.Instance.transform;
                         });
-        
 
-        MC.ChangeState(MouseControl.State.HasTools);
+
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 
     public override void UseTools(GameObject Obj)
     {
-        MC.PickObj.transform.parent = null;
-        MC.PickObj = null;
+        MouseSFM.Instance.PickObj.transform.parent = null;
+        MouseSFM.Instance.PickObj = null;
         GameController.Instance.PlayerPause();
 
         ObjY = Obj.transform.position.y + 0.3f;

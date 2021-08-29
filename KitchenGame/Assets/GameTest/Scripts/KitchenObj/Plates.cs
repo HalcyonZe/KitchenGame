@@ -34,7 +34,7 @@ public class Plates : BasicObj
     public override void PickObjs()
     {
         base.PickObjs();
-        MC.ChangeState(MouseControl.State.HasPlate);
+        MouseSFM.Instance.SwitchState(MouseState.HasPlate);
     }
 
     public override void UseTools(GameObject Obj)
@@ -50,15 +50,15 @@ public class Plates : BasicObj
 
     public override void PutObjs()
     {
-        MC.PickObj.transform.parent = this.transform;
-        MC.PickObj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
+        MouseSFM.Instance.PickObj.transform.parent = this.transform;
+        MouseSFM.Instance.PickObj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
             OnComplete(() => {
-                MC.PickObj.GetComponent<Rigidbody>().isKinematic = false;
-                MC.PickObj.GetComponent<Collider>().enabled = true;
-                Foods.Add(MC.PickObj);
-                MC.PickObj = null;          
+                MouseSFM.Instance.PickObj.GetComponent<Rigidbody>().isKinematic = false;
+                MouseSFM.Instance.PickObj.GetComponent<Collider>().enabled = true;
+                Foods.Add(MouseSFM.Instance.PickObj);
+                MouseSFM.Instance.PickObj = null;          
             });
-        MC.ChangeState(MouseControl.State.Nothing);
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 
     private void OnCollisionEnter(Collision collision)

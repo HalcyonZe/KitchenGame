@@ -46,7 +46,7 @@ public class Pickled : BasicObj
 
     public override void PutObjs()
     {
-        GameObject obj = MC.PickObj;
+        GameObject obj = MouseSFM.Instance.PickObj;
 
         obj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
             OnComplete(() => {
@@ -60,9 +60,9 @@ public class Pickled : BasicObj
                     _foodDic.Add(obj, cookTime);
                 }
 
-                MC.PickObj = null;
+                MouseSFM.Instance.PickObj = null;
             });
-        MC.ChangeState(MouseControl.State.Nothing);
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
 
         /*FoodItem food = new FoodItem();
         food.foodName = "salty streaky";

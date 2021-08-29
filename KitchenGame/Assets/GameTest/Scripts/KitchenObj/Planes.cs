@@ -7,6 +7,6 @@ public class Planes : BasicObj
     public override void PutObjs()
     {               
         base.PutObjs();
-        MC.ChangeState(MouseControl.State.Nothing);                
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 }

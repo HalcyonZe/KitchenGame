@@ -51,7 +51,7 @@ public class MouseControl : MonoBehaviour
 
     private void MouseState()
     {
-        switch (state)
+        /*switch (state)
         {
             case State.Nothing:
                 LayerMask layer1 = LayerMask.GetMask("Foods") | LayerMask.GetMask("Tools") |
@@ -78,11 +78,11 @@ public class MouseControl : MonoBehaviour
                 ClickAction(layer5);
                 break;
 
-        }
+        }*/
 
     }
 
-    private void ClickAction(LayerMask layer)
+    /*private void ClickAction(LayerMask layer)
     {
 
         //…‰œﬂºÏ≤‚
@@ -125,5 +125,5 @@ public class MouseControl : MonoBehaviour
     public void ChangeState(State istate)
     {
         state = istate;
-    }
+    }*/
 }

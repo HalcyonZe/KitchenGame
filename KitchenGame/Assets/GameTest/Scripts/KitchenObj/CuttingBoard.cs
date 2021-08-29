@@ -7,7 +7,7 @@ public class CuttingBoard : BasicObj
     public override void PutObjs()
     {
         base.PutObjs();
-        MC.PickObj.layer = LayerMask.NameToLayer("CutFoods");
-        MC.ChangeState(MouseControl.State.Nothing);
+        MouseSFM.Instance.PickObj.layer = LayerMask.NameToLayer("CutFoods");
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 }

@@ -27,14 +27,16 @@ public class GameController : MonoBehaviour
     {
         GameObject.Find("Player").GetComponent<PlayerController>().CanMove = false;
         GameObject.Find("Main Camera").GetComponent<CameraController>().CanCamera = false;
-        GameObject.Find("Main Camera").GetComponent<MouseControl>().CanClick = false;
+        //GameObject.Find("Main Camera").GetComponent<MouseControl>().CanClick = false;
+        MouseSFM.Instance.CanClick = false;
     }
 
     public void PlayerPlay()
     {
         GameObject.Find("Player").GetComponent<PlayerController>().CanMove = true;
         GameObject.Find("Main Camera").GetComponent<CameraController>().CanCamera = true;
-        GameObject.Find("Main Camera").GetComponent<MouseControl>().CanClick = true;
+        //GameObject.Find("Main Camera").GetComponent<MouseControl>().CanClick = true;
+        MouseSFM.Instance.CanClick = true;
     }
 
 }
