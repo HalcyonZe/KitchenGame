@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Knife
+  - Faucet
   layers:
   - Default
   - TransparentFX
@@ -21,10 +22,10 @@ TagManager:
   - Plane
   - CutFoods
   - Plate
-  - 
+  - Faucet
   - UsefulPlane
   - ResultPlane
-  - 
+  - Hearth
   - 
   - 
   - 

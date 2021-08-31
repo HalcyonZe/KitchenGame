@@ -24,11 +24,15 @@ public class Knifes : BasicObj
         this.GetComponent<Collider>().enabled = false;
         this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
                         OnComplete(() => {
-                            MouseSFM.Instance.PickObj = this.gameObject;
-                            this.transform.parent = MouseSFM.Instance.transform;                            
+                            
+                            this.transform.parent = MouseSFM.Instance.transform;  
+                            this.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f);  
+                                                 
                         });
-        this.transform.DOLocalRotate(new Vector3(0, -90, 0), 0.1f);
-        MouseSFM.Instance.SwitchState(MouseState.HasTools);
+        MouseSFM.Instance.PickObj = this.gameObject;
+        MouseSFM.Instance.SwitchState(MouseState.HasTools); 
+        this.transform.GetChild(0).gameObject.SetActive(false);
+        
     }
 
     public override void UseTools(GameObject Obj)
@@ -48,15 +52,15 @@ public class Knifes : BasicObj
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("UsefulPlane")))
                 {
-                    CameraController.Instance.GetCamera();
+                    /*CameraController.Instance.GetCamera();
 
                     Transform T = hit.collider.transform.GetChild(1).transform;
 
                     CameraController.Instance.transform.DOMove(T.position, 0.3f);
-                    CameraController.Instance.transform.DORotate(T.eulerAngles, 0.3f);
+                    CameraController.Instance.transform.DORotate(T.eulerAngles, 0.3f);*/
 
                     Cursor.lockState = CursorLockMode.None;
-
+                    this.transform.GetChild(0).gameObject.SetActive(true);
                     UseMouse = true;
                 }
             });
@@ -64,7 +68,7 @@ public class Knifes : BasicObj
 
     private void ObjSlice()
     {
-        this.transform.GetChild(0).gameObject.SetActive(true);
+        //this.transform.GetChild(0).gameObject.SetActive(true);
 
         // Û±Í“∆∂Ø
         Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
@@ -136,7 +140,7 @@ public class Knifes : BasicObj
         if (Input.GetMouseButtonDown(1) && UseMouse)
         {
             UseMouse = false;
-            this.transform.GetChild(0).gameObject.SetActive(false);
+            //this.transform.GetChild(0).gameObject.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
 
             PickObjs();

@@ -11,11 +11,23 @@ public class Pan : BasicObj
         Normal,
         Blanching,
         Move,
+        HoldWater,
     }
-    public PanState m_panState = PanState.Blanching ;
+    public PanState m_panState = PanState.Normal ;
 
     private Dictionary<GameObject, float> _foodDic = new Dictionary<GameObject, float>();
     private float PanY = 0;
+    //private bool CanRotate = false;
+
+    private GameObject _boiling, _water;
+    private bool HasWater = false;
+    public float WaterHeight = 0;
+
+    private void Start()
+    {
+        _water = this.transform.GetChild(1).gameObject;
+        _boiling = this.transform.GetChild(2).gameObject;
+    }
 
     private void FixedUpdate()
     {
@@ -51,10 +63,14 @@ public class Pan : BasicObj
                 Blanching();
                 break;
             case PanState.Normal:
-
+                //NormalState();
                 break;
             case PanState.Move:
                 PanMove();
+                StopMove();
+                break;
+            case PanState.HoldWater:
+                HoldWaterMove();
                 StopMove();
                 break;
         }
@@ -62,6 +78,7 @@ public class Pan : BasicObj
 
     private void Blanching()
     {
+        
         if (_foodDic.Count > 0)
         {
             for(int i=0;i<_foodDic.Count;i++)
@@ -91,6 +108,7 @@ public class Pan : BasicObj
 
     private void PanMove()
     {
+
         //鼠标移动
         Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
         Vector3 mousePos = Input.mousePosition;
@@ -98,24 +116,33 @@ public class Pan : BasicObj
         Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
         transform.position = new Vector3(worldPos.x, PanY, worldPos.z);
 
-        //旋转
-        if(Input.GetKey(KeyCode.A))
+        //if (CanRotate)
+        //{
+            //旋转
+        if (Input.GetKey(KeyCode.A))
         {
-            transform.Rotate(Vector3.forward,-1.0f);
+            transform.Rotate(Vector3.forward, -1.0f);
+            HasWater = false;
+            _water.SetActive(false);
+            WaterHeight = 0;
         }
         if (Input.GetKey(KeyCode.D))
         {
             transform.Rotate(Vector3.forward, 1.0f);
+            HasWater = false;
+            _water.SetActive(false);
+            WaterHeight = 0;
         }
+       // }
     }
 
     private void StopMove()
     {
-        if (Input.GetMouseButtonDown(1) && m_panState==PanState.Move)
+        if (Input.GetMouseButtonDown(1))
         {
-            m_panState = PanState.Normal;
 
             Cursor.lockState = CursorLockMode.Locked;
+            //CanRotate = false;
 
             PickObjs();
 
@@ -123,11 +150,39 @@ public class Pan : BasicObj
         }
     }
 
+    private void NormalState()
+    {
+        if (HasWater)
+        {
+            _water.SetActive(true);
+            _boiling.SetActive(false);
+        }
+    }
+
+    private void HoldWaterMove()
+    {
+        //鼠标移动
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
+        Vector3 mousePos = Input.mousePosition;
+        mousePos.z = screenPos.z;
+        Vector3 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+        transform.position = new Vector3(worldPos.x, PanY, worldPos.z);
+
+
+
+    }
+
     public override void PickObjs()
     {
-        base.PickObjs();
+        this.GetComponent<Rigidbody>().isKinematic = true;
+        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(1).position, 0.1f).
+                        OnComplete(() => {
+                            MouseSFM.Instance.PickObj = this.gameObject;
+                            this.transform.parent = MouseSFM.Instance.transform;
+                        });
         MouseSFM.Instance.SwitchState(MouseState.HasPan);
-        m_panState = PanState.Normal;
+        //m_panState = PanState.Normal;
+        ChangeState(PanState.Normal);
     }
 
     public override void UseTools(GameObject Obj)
@@ -170,34 +225,81 @@ public class Pan : BasicObj
     public override void SendObjs(GameObject Obj)
     {
         MouseSFM.Instance.PickObj.transform.parent = null;
-        MouseSFM.Instance.PickObj = null;
 
         GameController.Instance.PlayerPause();
 
-        //this.GetComponent<Collider>().enabled = false;
-        this.transform.localEulerAngles = new Vector3(0, 90, 0);
+        
         PanY = Obj.transform.position.y + 0.5f;
 
         transform.DOMove(new Vector3(Obj.transform.position.x, PanY, Obj.transform.position.z), 0.3f).
             OnComplete(() =>
             {
-
-                CameraController.Instance.GetCamera();
-
+                this.transform.localEulerAngles = new Vector3(0, 90, 0);
                 Cursor.lockState = CursorLockMode.None;
-
-                m_panState = PanState.Move;
+                //CanRotate = true;
+                //m_panState = PanState.Move;
+                ChangeState(PanState.Move);
 
             });
     }
 
-    /*private void OnCollisionExit(Collision collision)
+    public void ChangeState(PanState panState)
     {
-        if (_foodDic.Keys.Contains(collision.gameObject))
+        m_panState = panState;
+        if (HasWater)
         {
-            collision.transform.parent = null;
-            _foodDic.Remove(collision.gameObject);
+            switch (m_panState)
+            {
+                case PanState.Normal:
+                    _water.SetActive(true);
+                    _boiling.SetActive(false);
+                    break;
+                case PanState.Move:
+                    _water.SetActive(true);
+                    _boiling.SetActive(false);
+                    break;
+                case PanState.Blanching:
+                    _water.SetActive(false);
+                    _boiling.SetActive(true);
+                    break;
+            }
         }
-    }*/
+    }
 
+    public void SetPosY(Vector3 pos)
+    {
+        PanY = pos.y;
+
+        MouseSFM.Instance.PickObj.transform.parent = null;
+        GameController.Instance.PlayerPause();
+
+        transform.DOMove(pos, 0.3f).
+            OnComplete(() =>
+            {
+                this.transform.localEulerAngles = new Vector3(0, 90, 0);
+                Cursor.lockState = CursorLockMode.None;
+                //m_panState = PanState.HoldWater;
+                ChangeState(PanState.HoldWater);
+            });
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(m_panState==PanState.HoldWater && other.gameObject.tag=="Faucet")
+        {
+            HasWater = true;
+            WaterHeight += Time.fixedDeltaTime;
+            //Debug.Log(WaterHeight);
+            float WH = Mathf.Clamp(WaterHeight/5,0,1);
+            //Debug.Log(WH);
+            float Wscale = Mathf.Lerp(2, 4, WH);
+            _water.SetActive(true);
+            _water.transform.localScale = new Vector3(Wscale, 1, Wscale);
+            _water.transform.localPosition = new Vector3(0, Mathf.Lerp(0.1f, 0.2f, WH), 0);
+
+            _boiling.transform.GetChild(0).localScale = _water.transform.localScale;
+            _boiling.transform.GetChild(0).localPosition = _water.transform.localPosition;
+        }
+    }
 }

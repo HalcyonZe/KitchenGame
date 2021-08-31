@@ -16,9 +16,10 @@ public class BasicObj : MonoBehaviour
         this.GetComponent<Rigidbody>().isKinematic = true;
         this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
                         OnComplete(() => {
-                            MouseSFM.Instance.PickObj = this.gameObject;
+                            
                             this.transform.parent = MouseSFM.Instance.transform;                            
-                        });        
+                        }); 
+        MouseSFM.Instance.PickObj = this.gameObject;       
     }
 
     public virtual void PutObjs()

@@ -32,44 +32,31 @@ public class Cooking : BasicObj
 
     public override void PickObjs()
     {
-        this.GetComponent<Rigidbody>().isKinematic = true;
+        
         this.GetComponent<Collider>().enabled = false;
 
-        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
-                        OnComplete(() => {
-                            MouseSFM.Instance.PickObj = this.gameObject;
-                            this.transform.parent = MouseSFM.Instance.transform;
-                        });
+        base.PickObjs();
 
 
-        MouseSFM.Instance.SwitchState(MouseState.Nothing);
+        MouseSFM.Instance.SwitchState(MouseState.HasTools);
     }
 
     public override void UseTools(GameObject Obj)
     {
         MouseSFM.Instance.PickObj.transform.parent = null;
-        MouseSFM.Instance.PickObj = null;
+
         GameController.Instance.PlayerPause();
 
-        ObjY = Obj.transform.position.y + 0.3f;
+        ObjY = Obj.transform.position.y + 0.15f;
 
         transform.DOMove(new Vector3(Obj.transform.position.x, ObjY, Obj.transform.position.z), 0.3f).
             OnComplete(() => {
-                Ray ray = new Ray(transform.position, -transform.up);
-                RaycastHit hit;
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("UsefulPlane")))
-                {
-                    CameraController.Instance.GetCamera();
-
-                    Transform T = hit.collider.transform.GetChild(1).transform;
-
-                    CameraController.Instance.transform.DOMove(T.position, 0.3f);
-                    CameraController.Instance.transform.DORotate(T.eulerAngles, 0.3f);
+                
 
                     Cursor.lockState = CursorLockMode.None;
 
                     UseMouse = true;
-                }
+                
             });
     }
 
@@ -90,7 +77,8 @@ public class Cooking : BasicObj
             transform.DOShakePosition(0.5f,new Vector3(0,0.2f,0));
             Ray ray = new Ray(transform.position, transform.up);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("CutFoods")))
+            LayerMask layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Foods");
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer))
             {
                 //Debug.Log("hhh");
                 GameObject obj = hit.transform.gameObject;
@@ -105,10 +93,16 @@ public class Cooking : BasicObj
         switch(m_cooking)
         {
             case CookingTools.salt:
-                obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("salt", 5);
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("salt"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("salt", 5);
+                }
                 break;
             case CookingTools.pepper:
-                obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("pepper", 5);
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("pepper"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("pepper", 5);
+                }
                 break;
         }
     }
@@ -122,7 +116,6 @@ public class Cooking : BasicObj
             Cursor.lockState = CursorLockMode.Locked;
 
             PickObjs();
-
             GameController.Instance.PlayerPlay();
         }
     }

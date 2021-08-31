@@ -18,7 +18,7 @@ public class Plates : BasicObj
         {
             for(int i=0;i<Foods.Count;i++)
             {
-                if (Foods[i].transform.position.y < this.transform.position.y)
+                if ( (this.transform.position.y-Foods[i].transform.position.y)>=0.1f)
                 {
                     Foods[i].transform.parent = null;
                     Foods.Remove(Foods[i]);
@@ -43,7 +43,10 @@ public class Plates : BasicObj
             OnComplete(()=> {
                 Obj.layer = LayerMask.NameToLayer("Foods");
                 Obj.transform.parent = this.transform;
-                Foods.Add(Obj);
+                if (!Foods.Contains(Obj))
+                {
+                    Foods.Add(Obj);
+                }
             });
                 
     }
