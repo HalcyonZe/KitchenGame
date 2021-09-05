@@ -6,7 +6,7 @@ using EzySlice;
 
 public class Knifes : BasicObj
 {
-    public Material matCross;
+    //public Material matCross;
     private bool UseMouse = false;
     private float knifeY;
 
@@ -102,17 +102,21 @@ public class Knifes : BasicObj
                     Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.05f, 0.005f), transform.rotation, LayerMask.GetMask("CutFoods"));
                     foreach (Collider c in colliders)
                     {
-                        FoodItem foodItem = c.GetComponent<Foods>().m_foodItem;
+                        Foods foods = new Foods();
+                        foods.foodInit(c.GetComponent<Foods>());
+                        //Foods foods = new Foods(c.GetComponent<Foods>());
+                        //FoodItem foodItem = c.GetComponent<Foods>().m_foodItem;
                         Destroy(c.gameObject);
                         //Debug.Log(foodItem.handleScoreDic.Count);
-                        if (!foodItem.handleScoreDic.ContainsKey("cut"))
+                        if (!foods.m_foodItem.handleScoreDic.ContainsKey("cut"))
                         {
-                            foodItem.handleScoreDic.Add("cut", 5);
+                            foods.m_foodItem.handleScoreDic.Add("cut", 5);
                         }
                         
                         SlicedHull hull = c.gameObject.Slice(transform.position, transform.forward);
                         if (hull != null)
                         {
+                            Material matCross = CrossMatManager.Instance.GetMaterial(foods.foodName);
                             GameObject lower = hull.CreateLowerHull(c.gameObject, matCross);
                             GameObject upper = hull.CreateUpperHull(c.gameObject, matCross);
                             GameObject[] objs = new GameObject[] { lower, upper };
@@ -121,7 +125,8 @@ public class Knifes : BasicObj
                                 obj.AddComponent<Rigidbody>();
                                 obj.GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.Continuous;
                                 obj.AddComponent<MeshCollider>().convex = true;
-                                obj.AddComponent<Foods>().foodInit(foodItem);
+                                obj.AddComponent<Foods>().foodInit(foods);
+                                //obj.GetComponent<Foods>().m_colors = foods.m_colors;
                                 obj.layer = 13;
                             }
                         }

@@ -37,7 +37,10 @@ public class HasPanState : BaseState
                 Obj.GetComponent<BasicObj>().PutObjs();
                 break;
             case "Plate":
-                MouseSFM.Instance.PickObj.GetComponent<BasicObj>().SendObjs(Obj) ;
+                if (Obj.TryGetComponent<Plates>(out Plates plates))
+                {
+                    MouseSFM.Instance.PickObj.GetComponent<BasicObj>().SendObjs(Obj);
+                }
                 break;
             case "Faucet":
                 Obj.GetComponent<Faucet>().UseFaucet();

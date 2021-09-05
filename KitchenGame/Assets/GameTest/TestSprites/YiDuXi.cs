@@ -32,7 +32,7 @@ public class YiDuXi : Dish
         _dishItem.foodScoreDic.Add(foodItem4, 5);
 
         FoodItem foodItem5 = new FoodItem();
-        foodItem5.foodName = "ham";
+        foodItem5.foodName = "»ðÍÈ";
         _dishItem.foodScoreDic.Add(foodItem5, 5);
 
         FoodItem foodItem6 = new FoodItem();

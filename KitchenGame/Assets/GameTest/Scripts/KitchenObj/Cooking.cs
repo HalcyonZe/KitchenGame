@@ -5,16 +5,25 @@ using DG.Tweening;
 
 public class Cooking : BasicObj
 {
-    public enum CookingTools
+    /*public enum CookingTools
     {
         salt,
         pepper,
     }
 
-    public CookingTools m_cooking;
+    public CookingTools m_cooking;*/
 
-    private bool UseMouse = false;
-    private float ObjY = 0;
+    protected bool UseMouse = false;
+    protected float ObjY = 0;
+    //private GameObject cap;
+    //private ParticleSystem ps;
+
+    /*private void Awake()
+    {
+        cap = this.transform.GetChild(0).gameObject;
+        //ps = this.transform.GetChild(4).GetComponent<ParticleSystem>();
+    }*/
+
 
     private void FixedUpdate()
     {
@@ -43,11 +52,13 @@ public class Cooking : BasicObj
 
     public override void UseTools(GameObject Obj)
     {
-        MouseSFM.Instance.PickObj.transform.parent = null;
+        //cap.SetActive(false);
+
+        /*MouseSFM.Instance.PickObj.transform.parent = null;
 
         GameController.Instance.PlayerPause();
 
-        ObjY = Obj.transform.position.y + 0.15f;
+        ObjY = Obj.transform.position.y + 0.3f;
 
         transform.DOMove(new Vector3(Obj.transform.position.x, ObjY, Obj.transform.position.z), 0.3f).
             OnComplete(() => {
@@ -57,12 +68,12 @@ public class Cooking : BasicObj
 
                     UseMouse = true;
                 
-            });
+            });*/
     }
 
     private void ObjCooking()
     {
-        this.transform.eulerAngles = new Vector3(180, 0, 0);
+        this.transform.eulerAngles = new Vector3(160, 0, 0);
         // Û±Í“∆∂Ø
         Vector3 screenPos = Camera.main.WorldToScreenPoint(this.transform.position);
         Vector3 mousePos = Input.mousePosition;
@@ -72,9 +83,30 @@ public class Cooking : BasicObj
         transform.position = new Vector3(worldPos.x, ObjY, worldPos.z);
 
 
-        if (Input.GetMouseButtonDown(0))
+        MouseAction();
+
+    }
+    
+    public virtual void StopCooking()
+    {
+        if (Input.GetMouseButtonDown(1) && UseMouse)
         {
-            transform.DOShakePosition(0.5f,new Vector3(0,0.2f,0));
+            UseMouse = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            //cap.SetActive(true);
+            PickObjs();
+            GameController.Instance.PlayerPlay();
+        }
+    }
+
+    public virtual void MouseAction()
+    {
+        /*if (Input.GetMouseButtonDown(0))
+        {
+            transform.DOShakePosition(0.3f, new Vector3(0, 0.15f, 0));
+            //ps.Play();
+
             Ray ray = new Ray(transform.position, transform.up);
             RaycastHit hit;
             LayerMask layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Foods");
@@ -84,11 +116,10 @@ public class Cooking : BasicObj
                 GameObject obj = hit.transform.gameObject;
                 SetCooking(obj);
             }
-        }
-
+        }*/
     }
 
-    private void SetCooking(GameObject obj)
+    /*public virtual void SetCooking(GameObject obj)
     {
         switch(m_cooking)
         {
@@ -105,19 +136,8 @@ public class Cooking : BasicObj
                 }
                 break;
         }
-    }
+    }*/
 
-    private void StopCooking()
-    {
-        if (Input.GetMouseButtonDown(1) && UseMouse)
-        {
-            UseMouse = false;
-
-            Cursor.lockState = CursorLockMode.Locked;
-
-            PickObjs();
-            GameController.Instance.PlayerPlay();
-        }
-    }
+    
 
 }

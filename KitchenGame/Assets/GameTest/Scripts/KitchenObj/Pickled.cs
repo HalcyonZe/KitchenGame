@@ -32,11 +32,7 @@ public class Pickled : BasicObj
                     }
                     else
                     {
-                        FoodItem newFood = new FoodItem();
-                        newFood.foodName = "salty streaky";
-                        food.GetComponent<Foods>().foodInit(newFood);
-                        food.transform.parent = null;
-                        _foodDic.Remove(food);
+                        ChangeToSalty(food);
                     }
                 }
             }
@@ -63,9 +59,19 @@ public class Pickled : BasicObj
                 MouseSFM.Instance.PickObj = null;
             });
         MouseSFM.Instance.SwitchState(MouseState.Nothing);
-
-        /*FoodItem food = new FoodItem();
-        food.foodName = "salty streaky";
-        obj.GetComponent<Foods>().foodInit(food);*/
     }
+
+
+    private void ChangeToSalty(GameObject food)
+    {
+        if (food.GetComponent<Foods>().foodName == "streaky pork")
+        {
+            FoodItem newFood = new FoodItem();
+            newFood.foodName = "salty streaky";
+            food.GetComponent<Foods>().foodItemInit(newFood);
+            food.transform.parent = null;
+            _foodDic.Remove(food);
+        }
+    }
+
 }

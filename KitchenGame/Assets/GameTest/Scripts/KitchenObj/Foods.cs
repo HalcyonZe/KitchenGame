@@ -4,28 +4,116 @@ using UnityEngine;
 
 public class Foods : BasicObj
 {
+    #region 枚举属性
+    public enum FoodState
+    {
+        normal,
+        Blanching,
+        cook,
+    }
+    public FoodState m_foodState = FoodState.normal;
+    #endregion
+
+    #region 属性
     public string foodName;
     public FoodItem m_foodItem = new FoodItem();
+    private float BlanchingTime = 0;
+    private float CookingTime = 0;
+
+    #endregion
+
+    #region 组件
+    private Material m_material;
+    public List<Color> m_colors;
+    //public int colorIndex = 0;
+    #endregion
 
     private void Awake()
     {
         m_foodItem.foodName = this.foodName;
+        m_material = this.GetComponent<Renderer>().material;
     }
 
-    public void foodInit(FoodItem foodItem)
+    private void Update()
     {
-        m_foodItem = foodItem;
+        switch (m_foodState)
+        {
+            case FoodState.normal:
+                break;
+            case FoodState.Blanching:
+                FoodBlanching();
+                break;
+            case FoodState.cook:
+                CookFood();
+                break;
+        }
+    }
+
+    public void foodInit(Foods food)
+    {
+        m_foodItem.foodName = food.m_foodItem.foodName;
+        m_foodItem.handleScoreDic = new Dictionary<string, int>(food.m_foodItem.handleScoreDic);
+        foodName = food.m_foodItem.foodName;
+        m_colors = food.m_colors;
+        //colorIndex = food.colorIndex;
+    }
+
+    public void foodItemInit(FoodItem foodItem)
+    {
+        m_foodItem.foodName = foodItem.foodName;
+        m_foodItem.handleScoreDic = new Dictionary<string, int>(foodItem.handleScoreDic);
         foodName = foodItem.foodName;
     }
 
     public override void PickObjs()
-    {       
+    {
         base.PickObjs();
         MouseSFM.Instance.SwitchState(MouseState.HasFoods);
         this.gameObject.layer = LayerMask.NameToLayer("Foods");
+        m_foodState = FoodState.normal;
     }
 
-    
+    private void FoodBlanching()
+    {
+        if (BlanchingTime < 5)
+        {
+            BlanchingTime += Time.fixedDeltaTime;
+            float r = Mathf.Clamp(BlanchingTime / 5, 0, 1);
+            float colorG = Mathf.Lerp(1, (1 + m_colors[0].g) / 2, r);
+            float colorB = Mathf.Lerp(1, (1 - m_colors[0].b) / 2, r);
+            Color color = new Color(m_colors[0].r, colorG, colorB);
+            m_material.SetColor("_BaseColor", color);
+        }
+        else
+        {
+            if (!m_foodItem.handleScoreDic.ContainsKey("blanching"))
+            {
+                m_foodItem.handleScoreDic.Add("blanching", 5);
+            }
+            m_foodState = FoodState.normal;
+        }
+    }
 
+    private void CookFood()
+    {
+        if (CookingTime < 8)
+        {
+            CookingTime += Time.fixedDeltaTime;
+            float r = Mathf.Clamp(CookingTime / 8, 0, 1);
+            float colorG = Mathf.Lerp((1 + m_colors[0].g) / 2, m_colors[0].g, r);
+            float colorB = Mathf.Lerp((1 - m_colors[0].b) / 2, m_colors[0].b, r);
+            //Debug.Log(colorG);
+            Color color = new Color(m_colors[0].r, colorG, colorB);
+            m_material.SetColor("_BaseColor", color);
+        }
+        else
+        {
+            /*if (!m_foodItem.handleScoreDic.ContainsKey("blanching"))
+            {
+                m_foodItem.handleScoreDic.Add("blanching", 5);
+            }*/
+            m_foodState = FoodState.normal;
+        }
+    }
 
 }
