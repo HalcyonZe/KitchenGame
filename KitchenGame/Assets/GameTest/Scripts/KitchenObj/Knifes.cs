@@ -98,8 +98,9 @@ public class Knifes : BasicObj
                 UseMouse = false;
                 transform.DOMoveY(hit.collider.transform.position.y + 0.1f, 0.3f).OnComplete(() =>
                 {
+                    AudioController.Instance.SetAudioPlay("Cut");
                     //ÇÐ¸îÎïÌå
-                    Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.05f, 0.005f), transform.rotation, LayerMask.GetMask("CutFoods"));
+                    Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.01f)/*new Vector3(0.1f, 0.05f, 0.005f)*/, transform.rotation, LayerMask.GetMask("CutFoods"));
                     foreach (Collider c in colliders)
                     {
                         Foods foods = new Foods();

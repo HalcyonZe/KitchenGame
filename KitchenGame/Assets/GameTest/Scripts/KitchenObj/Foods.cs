@@ -9,7 +9,8 @@ public class Foods : BasicObj
     {
         normal,
         Blanching,
-        cook,
+        boil,
+        fry,
     }
     public FoodState m_foodState = FoodState.normal;
     #endregion
@@ -43,8 +44,10 @@ public class Foods : BasicObj
             case FoodState.Blanching:
                 FoodBlanching();
                 break;
-            case FoodState.cook:
-                CookFood();
+            case FoodState.boil:
+                FoodBoil();
+                break;
+            case FoodState.fry:
                 break;
         }
     }
@@ -94,7 +97,7 @@ public class Foods : BasicObj
         }
     }
 
-    private void CookFood()
+    private void FoodBoil()
     {
         if (CookingTime < 8)
         {

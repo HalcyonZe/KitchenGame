@@ -33,8 +33,5 @@ public class BasicObj : MonoBehaviour
             });
     }
 
-    public virtual void SendObjs(GameObject Obj)
-    {
-
-    }
+    
 }

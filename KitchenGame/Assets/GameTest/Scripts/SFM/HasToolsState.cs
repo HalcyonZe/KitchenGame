@@ -10,7 +10,7 @@ public class HasToolsState : BaseState
         layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plane");
         if(/*MouseSFM.Instance.PickObj.tag!="Knife"*/MouseSFM.Instance.PickObj.TryGetComponent<Cooking>(out Cooking cooking))
         {
-            layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plane")| LayerMask.GetMask("Foods");
+            layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plane")| LayerMask.GetMask("Foods")| LayerMask.GetMask("Plate");
         }
         base.OnEnter();
     }
@@ -27,6 +27,9 @@ public class HasToolsState : BaseState
                 Obj.GetComponent<BasicObj>().PutObjs();
                 break;
             case "Foods":
+                MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
+                break;
+            case "Plate":
                 MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
                 break;
         }

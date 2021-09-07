@@ -16,14 +16,11 @@ public enum MouseState
 public abstract class BaseState 
 {
     protected LayerMask layer;
-    //鼠标图案
-    private MouseIcon MIcon;
 
     protected bool Mouse = false;
 
     public virtual void OnEnter()
     {
-        MIcon = GameObject.Find("Mouse").GetComponent<MouseIcon>();
         Mouse = true;
     }
 
@@ -49,7 +46,7 @@ public abstract class BaseState
         {
             //划出射线，只有在scene视图中才能看到
             Debug.DrawLine(ray.origin, hitInfo.point);
-            MIcon.ToClick();
+            MouseIcon.Instance.ToClick();
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -57,13 +54,13 @@ public abstract class BaseState
 
                 MouseAction(gameObj);
 
-                MIcon.ToPoint();
+                MouseIcon.Instance.ToPoint();
             }
 
         }
         else
         {
-            MIcon.ToPoint();
+            MouseIcon.Instance.ToPoint();
         }
     }
 

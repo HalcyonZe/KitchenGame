@@ -36,7 +36,6 @@ public class powder : Cooking
         transform.DOMove(new Vector3(Obj.transform.position.x, ObjY, Obj.transform.position.z), 0.3f).
             OnComplete(() => {
 
-
                 Cursor.lockState = CursorLockMode.None;
 
                 UseMouse = true;
@@ -54,6 +53,8 @@ public class powder : Cooking
     {
         if (Input.GetMouseButtonDown(0))
         {
+            AudioController.Instance.SetAudioPlay("Salt");
+
             transform.DOShakePosition(0.3f, new Vector3(0, 0.15f, 0));
             ps.Play();
 

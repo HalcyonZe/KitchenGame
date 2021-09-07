@@ -41,6 +41,7 @@ public class Plates : BasicObj
     {
         Obj.transform.DOMove(this.transform.GetChild(0).position, 0.1f).
             OnComplete(()=> {
+                AudioController.Instance.SetAudioPlay("Put");
                 Obj.layer = LayerMask.NameToLayer("Foods");
                 Obj.transform.parent = this.transform;
                 if (!Foods.Contains(Obj))
@@ -56,6 +57,7 @@ public class Plates : BasicObj
         MouseSFM.Instance.PickObj.transform.parent = this.transform;
         MouseSFM.Instance.PickObj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
             OnComplete(() => {
+                AudioController.Instance.SetAudioPlay("Put");
                 MouseSFM.Instance.PickObj.GetComponent<Rigidbody>().isKinematic = false;
                 MouseSFM.Instance.PickObj.GetComponent<Collider>().enabled = true;
                 Foods.Add(MouseSFM.Instance.PickObj);

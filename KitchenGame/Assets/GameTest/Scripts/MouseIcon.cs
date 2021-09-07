@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MouseIcon : MonoBehaviour
+public class MouseIcon : Singleton<MouseIcon>
 {
     public Sprite point, click;
     private Image image;
@@ -24,4 +24,8 @@ public class MouseIcon : MonoBehaviour
         image.sprite = click;
     }
 
+    public void ToNothing()
+    {
+        image.sprite=null;
+    }
 }

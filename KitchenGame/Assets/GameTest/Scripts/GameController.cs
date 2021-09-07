@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour
         GameObject.Find("Main Camera").GetComponent<CameraController>().CanCamera = false;
         //GameObject.Find("Main Camera").GetComponent<MouseControl>().CanClick = false;
         MouseSFM.Instance.CanClick = false;
+        MouseIcon.Instance.ToNothing();
     }
 
     public void PlayerPlay()
@@ -37,6 +38,7 @@ public class GameController : MonoBehaviour
         GameObject.Find("Main Camera").GetComponent<CameraController>().CanCamera = true;
         //GameObject.Find("Main Camera").GetComponent<MouseControl>().CanClick = true;
         MouseSFM.Instance.CanClick = true;
+        MouseIcon.Instance.ToPoint();
     }
 
 }
