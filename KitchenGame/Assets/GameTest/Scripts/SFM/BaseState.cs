@@ -46,7 +46,7 @@ public abstract class BaseState
         {
             //划出射线，只有在scene视图中才能看到
             Debug.DrawLine(ray.origin, hitInfo.point);
-            MouseIcon.Instance.ToClick();
+            UIController.Instance.ToClick();
 
             if (Input.GetMouseButtonUp(0))
             {
@@ -54,13 +54,13 @@ public abstract class BaseState
 
                 MouseAction(gameObj);
 
-                MouseIcon.Instance.ToPoint();
+                UIController.Instance.ToPoint();
             }
 
         }
         else
         {
-            MouseIcon.Instance.ToPoint();
+            UIController.Instance.ToPoint();
         }
     }
 

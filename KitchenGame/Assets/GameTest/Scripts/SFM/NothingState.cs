@@ -9,7 +9,8 @@ public class NothingState : BaseState
         base.OnEnter();
 
         layer = LayerMask.GetMask("Foods") | LayerMask.GetMask("Tools") |
-                LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plate")| LayerMask.GetMask("Faucet");
+                LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plate")|
+                LayerMask.GetMask("Faucet") | LayerMask.GetMask("dough");
     }
 
     public override void MouseAction(GameObject Obj)

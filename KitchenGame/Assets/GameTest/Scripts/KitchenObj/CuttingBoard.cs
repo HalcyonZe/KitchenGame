@@ -8,6 +8,10 @@ public class CuttingBoard : BasicObj
     {
         base.PutObjs();
         MouseSFM.Instance.PickObj.layer = LayerMask.NameToLayer("CutFoods");
+        if(MouseSFM.Instance.PickObj.TryGetComponent<dough>(out dough dough))
+        {
+            MouseSFM.Instance.PickObj.layer = LayerMask.NameToLayer("dough");
+        }
         MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 }

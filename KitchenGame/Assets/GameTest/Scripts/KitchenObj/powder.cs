@@ -9,6 +9,7 @@ public class powder : Cooking
     {
         salt,
         pepper,
+        bean,
     }
 
     public CookingTools m_cooking;
@@ -36,8 +37,7 @@ public class powder : Cooking
         transform.DOMove(new Vector3(Obj.transform.position.x, ObjY, Obj.transform.position.z), 0.3f).
             OnComplete(() => {
 
-                Cursor.lockState = CursorLockMode.None;
-
+                Cursor.lockState = CursorLockMode.None;               
                 UseMouse = true;
 
             });
@@ -45,8 +45,17 @@ public class powder : Cooking
 
     public override void StopCooking()
     {
-        base.StopCooking();
-        cap.SetActive(true);
+        if (Input.GetMouseButtonDown(1) && UseMouse)
+        {
+            UseMouse = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            PickObjs();
+            GameController.Instance.PlayerPlay();
+            cap.SetActive(true);
+            UIController.Instance.CloseTip();
+        }
+        
     }
 
     public override void MouseAction()
@@ -74,15 +83,17 @@ public class powder : Cooking
         switch (m_cooking)
         {
             case CookingTools.salt:
+                UIController.Instance.OpenTip("Ê³ÑÎ",5);
                 if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("salt"))
                 {
                     obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("salt", 5);
                 }
                 break;
-            case CookingTools.pepper:
-                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("pepper"))
+            case CookingTools.bean:
+                UIController.Instance.OpenTip("¶¹ôù", 5);
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("bean"))
                 {
-                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("pepper", 5);
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("bean", 5);
                 }
                 break;
         }

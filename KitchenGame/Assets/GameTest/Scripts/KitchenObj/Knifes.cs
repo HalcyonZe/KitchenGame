@@ -52,13 +52,6 @@ public class Knifes : BasicObj
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("UsefulPlane")))
                 {
-                    /*CameraController.Instance.GetCamera();
-
-                    Transform T = hit.collider.transform.GetChild(1).transform;
-
-                    CameraController.Instance.transform.DOMove(T.position, 0.3f);
-                    CameraController.Instance.transform.DORotate(T.eulerAngles, 0.3f);*/
-
                     Cursor.lockState = CursorLockMode.None;
                     this.transform.GetChild(0).gameObject.SetActive(true);
                     UseMouse = true;
@@ -96,11 +89,11 @@ public class Knifes : BasicObj
             if (Input.GetMouseButtonDown(0))
             {
                 UseMouse = false;
-                transform.DOMoveY(hit.collider.transform.position.y + 0.1f, 0.3f).OnComplete(() =>
+                transform.DOMoveY(hit.collider.transform.position.y +0.025f, 0.3f).OnComplete(() =>
                 {
                     AudioController.Instance.SetAudioPlay("Cut");
                     //ÇÐ¸îÎïÌå
-                    Collider[] colliders = Physics.OverlapBox(transform.position, new Vector3(0.1f, 0.1f, 0.01f)/*new Vector3(0.1f, 0.05f, 0.005f)*/, transform.rotation, LayerMask.GetMask("CutFoods"));
+                    Collider[] colliders = Physics.OverlapBox(transform.position, /*new Vector3(0.1f, 0.1f, 0.01f)*/new Vector3(0.1f, 0.2f, 0.005f), transform.rotation, LayerMask.GetMask("CutFoods"));
                     foreach (Collider c in colliders)
                     {
                         Foods foods = new Foods();
