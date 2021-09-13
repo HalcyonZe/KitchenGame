@@ -18,7 +18,7 @@ public class HasPanState : BaseState
         base.OnUpdate();
         if (MouseSFM.Instance.PickObj != null)
         {
-            MouseSFM.Instance.PickObj.transform.localRotation = Quaternion.Euler(0, -90, MouseSFM.Instance.transform.localEulerAngles.x);
+            MouseSFM.Instance.PickObj.transform.localRotation = Quaternion.Euler(MouseSFM.Instance.transform.localEulerAngles.x, 180, 0);
         }
     }
 
@@ -50,4 +50,6 @@ public class HasPanState : BaseState
                 break;
         }
     }
+
+
 }

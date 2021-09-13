@@ -22,10 +22,12 @@ public class Plates : BasicObj
                 {
                     Foods[i].transform.parent = null;
                     Foods.Remove(Foods[i]);
+                    i--;
                 }
                 else if(Foods[i].transform.parent != this.transform)
                 {
                     Foods.Remove(Foods[i]);
+                    i--;
                 }
             }
         }
@@ -78,12 +80,18 @@ public class Plates : BasicObj
         }
     }
 
-    /*private void OnCollisionExit(Collision collision)
+    public void SetTrash(GameObject Obj)
     {
-        if(Foods.Contains(collision.gameObject))
+        Vector3 pos = Obj.transform.GetChild(0).position;
+        if (Foods.Count > 0)
         {
-            collision.transform.parent = null;
-            Foods.Remove(collision.gameObject);
+            for (int i = 0; i < Foods.Count; i++)
+            {
+                Foods[i].transform.parent = null;
+                Foods[i].transform.DOMove(pos,0.1f);
+                //Foods.Remove(Foods[i]);
+            }
+            Foods.Clear();
         }
-    }*/
+    }
 }

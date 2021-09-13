@@ -10,11 +10,16 @@ public class HasToolsState : BaseState
         layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plane");
         if(MouseSFM.Instance.PickObj.TryGetComponent<Cooking>(out Cooking cooking))
         {
-            layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plane")| LayerMask.GetMask("Foods")| LayerMask.GetMask("Plate");
+            layer = LayerMask.GetMask("CutFoods") | LayerMask.GetMask("Plane")| 
+                LayerMask.GetMask("Foods")| LayerMask.GetMask("Plate");
         }
         if (MouseSFM.Instance.PickObj.TryGetComponent<RollingPin>(out RollingPin rollingPin))
         {
             layer = LayerMask.GetMask("dough") | LayerMask.GetMask("Plane") ;
+        }
+        if (MouseSFM.Instance.PickObj.TryGetComponent<Shovel>(out Shovel shovel))
+        {
+            layer = LayerMask.GetMask("Plate") | LayerMask.GetMask("Plane");
         }
         base.OnEnter();
     }

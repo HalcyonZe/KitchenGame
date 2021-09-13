@@ -184,7 +184,7 @@ public class Pan : BasicObj
             if (Input.GetKey(KeyCode.A))
             {
                 transform.Rotate(Vector3.forward, -1.0f);
-                //HasWater = false;
+
                 Hasliquid = 0;
                 _water.SetActive(false);
                 WaterHeight = 0;
@@ -192,10 +192,14 @@ public class Pan : BasicObj
             if (Input.GetKey(KeyCode.D))
             {
                 transform.Rotate(Vector3.forward, 1.0f);
-                //HasWater = false;
+
                 Hasliquid = 0;
                 _water.SetActive(false);
                 WaterHeight = 0;
+            }
+            if(transform.localRotation.x>0.4f)
+            {
+
             }
         }
     }
@@ -219,9 +223,10 @@ public class Pan : BasicObj
         this.transform.DOMove(MouseSFM.Instance.transform.GetChild(1).position, 0.1f).
                         OnComplete(() => {                           
                             this.transform.parent = MouseSFM.Instance.transform;
+                            MouseSFM.Instance.PickObj = this.gameObject;
+                            MouseSFM.Instance.SwitchState(MouseState.HasPan);
                         });
-        MouseSFM.Instance.PickObj = this.gameObject;
-        MouseSFM.Instance.SwitchState(MouseState.HasPan);
+        
         ChangeState(PanState.Normal);
     }
 
@@ -249,6 +254,10 @@ public class Pan : BasicObj
                 if (Hasliquid == 1)
                 {
                     AudioController.Instance.SetAudioPlay("PutInWater");
+                }
+                else if(Hasliquid == 2)
+                {
+                    AudioController.Instance.SetAudioPlay("Fried");
                 }
                 else
                 {
@@ -283,7 +292,7 @@ public class Pan : BasicObj
         transform.DOMove(new Vector3(Obj.transform.position.x, PanY, Obj.transform.position.z), 0.3f).
             OnComplete(() =>
             {
-                this.transform.localEulerAngles = new Vector3(0, 90, 0);
+                this.transform.localEulerAngles = new Vector3(0, MouseSFM.Instance.transform.eulerAngles.y+180, 0);
                 Cursor.lockState = CursorLockMode.None;
                 ChangeState(PanState.Move);
 
@@ -330,7 +339,9 @@ public class Pan : BasicObj
         {
             Hasliquid = 2;
         }
-        Color color;
+        
+        #region ÑÕÉ«»ìºÏ
+        /*Color color;
         Color curColor = _water.GetComponent<Renderer>().material.GetColor("_Color");
         if (materialColor != other.GetComponent<Renderer>().material.GetColor("_BaseColor"))
         {
@@ -341,20 +352,15 @@ public class Pan : BasicObj
         {
             color = curColor;
         }
-        //Color color = curColor * materialColor;
-        /*if (curColor == materialColor)
-        {
-            color = curColor;
-        }
-        else
-        {
-            Debug.Log("hhh");
-            color = curColor * materialColor;
-        }*/
-        //Debug.Log(curColor);
-        //Debug.Log(materialColor);
-        //Debug.Log(color);
-        _water.GetComponent<Renderer>().material.SetColor("_Color", color);
+        _water.GetComponent<Renderer>().material.SetColor("_Color", color);*/
+
+        #endregion
+        
+        #region ÑÕÉ«Ìæ»»
+        Color new_color = other.GetComponent<Renderer>().material.GetColor("_BaseColor");
+        _water.GetComponent<Renderer>().material.SetColor("_Color", new_color);
+        #endregion
+
 
         WaterHeight += Time.fixedDeltaTime;
 

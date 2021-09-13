@@ -9,7 +9,8 @@ public class HasPlateState : BaseState
         
 
         layer = LayerMask.GetMask("Foods") | LayerMask.GetMask("Plane") |
-                LayerMask.GetMask("CutFoods") | LayerMask.GetMask("ResultPlane");
+                LayerMask.GetMask("CutFoods") | LayerMask.GetMask("ResultPlane")| 
+                LayerMask.GetMask("trash");
         
         base.OnEnter();
     }
@@ -38,6 +39,9 @@ public class HasPlateState : BaseState
                 break;
             case "ResultPlane":
                 Obj.GetComponent<BasicObj>().PutObjs();
+                break;
+            case "trash":
+                MouseSFM.Instance.PickObj.GetComponent<Plates>().SetTrash(Obj);
                 break;
         }
     }

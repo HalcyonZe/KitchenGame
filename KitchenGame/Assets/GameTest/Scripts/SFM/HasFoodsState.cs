@@ -9,7 +9,7 @@ public class HasFoodsState : BaseState
         base.OnEnter();
 
         layer = LayerMask.GetMask("Plane") | LayerMask.GetMask("UsefulPlane") |
-                LayerMask.GetMask("Plate");
+                LayerMask.GetMask("Plate") | LayerMask.GetMask("trash") ;
     }
 
     public override void MouseAction(GameObject Obj)
