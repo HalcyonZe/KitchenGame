@@ -30,6 +30,7 @@ public class Pan : BasicObj
     #region 组件
     protected GameObject _boiling, _water, _smoke;
     private AudioSource m_audioSource;
+    private ParticleSystem ps1, ps2;
     #endregion
 
     
@@ -44,6 +45,8 @@ public class Pan : BasicObj
         _water = this.transform.GetChild(1).gameObject;
         _boiling = this.transform.GetChild(2).GetChild(0).gameObject;
         _smoke = this.transform.GetChild(2).GetChild(1).gameObject;
+        ps1 = transform.GetChild(3).GetComponent<ParticleSystem>();
+        ps2 = transform.GetChild(4).GetComponent<ParticleSystem>();
 
         m_audioSource = this.GetComponent<AudioSource>();
 
@@ -185,22 +188,40 @@ public class Pan : BasicObj
             {
                 transform.Rotate(Vector3.forward, -1.0f);
 
-                Hasliquid = 0;
-                _water.SetActive(false);
-                WaterHeight = 0;
+                //Hasliquid = 0;
+                //_water.SetActive(false);
+                //WaterHeight = 0;
             }
             if (Input.GetKey(KeyCode.D))
             {
                 transform.Rotate(Vector3.forward, 1.0f);
 
-                Hasliquid = 0;
-                _water.SetActive(false);
-                WaterHeight = 0;
+                //Hasliquid = 0;
+                //_water.SetActive(false);
+                //WaterHeight = 0;
             }
-            if(transform.localRotation.x>0.4f)
+            if (Hasliquid > 0)
             {
+                Color _color = _water.GetComponent<Renderer>().material.GetColor("_Color");
+                if (transform.localRotation.x > 0.4f)
+                {
+                    ps1.gameObject.GetComponent<Renderer>().material.SetColor("_BaseColor", _color);
+                    ps1.Play();
+                    Hasliquid = 0;
+                    _water.SetActive(false);
+                    WaterHeight = 0;
+                }
+                if (transform.localRotation.x < -0.4f)
+                {
+                    ps2.gameObject.GetComponent<Renderer>().material.SetColor("_BaseColor", _color);
+                    ps2.Play();
+                    Hasliquid = 0;
+                    _water.SetActive(false);
+                    WaterHeight = 0;
+                }
 
             }
+            
         }
     }
 
@@ -334,14 +355,14 @@ public class Pan : BasicObj
     private Color materialColor;
     private void OnParticleCollision(GameObject other)
     {
-
+        Hasliquid = 3;
         if (other.tag == "oil")
         {
             Hasliquid = 2;
         }
         
         #region 颜色混合
-        /*Color color;
+        Color color;
         Color curColor = _water.GetComponent<Renderer>().material.GetColor("_Color");
         if (materialColor != other.GetComponent<Renderer>().material.GetColor("_BaseColor"))
         {
@@ -352,13 +373,13 @@ public class Pan : BasicObj
         {
             color = curColor;
         }
-        _water.GetComponent<Renderer>().material.SetColor("_Color", color);*/
+        _water.GetComponent<Renderer>().material.SetColor("_Color", color);
 
         #endregion
         
         #region 颜色替换
-        Color new_color = other.GetComponent<Renderer>().material.GetColor("_BaseColor");
-        _water.GetComponent<Renderer>().material.SetColor("_Color", new_color);
+        /*Color new_color = other.GetComponent<Renderer>().material.GetColor("_BaseColor");
+        _water.GetComponent<Renderer>().material.SetColor("_Color", new_color);*/
         #endregion
 
 

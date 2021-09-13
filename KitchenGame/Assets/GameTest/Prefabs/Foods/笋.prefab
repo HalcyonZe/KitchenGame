@@ -130,3 +130,4 @@ MonoBehaviour:
   foodName: "\u7B0B"
   m_colors:
   - {r: 1, g: 0.9696857, b: 0, a: 0}
+  - {r: 1, g: 0.25382873, b: 0, a: 0}

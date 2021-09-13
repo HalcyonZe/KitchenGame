@@ -28,13 +28,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6726341545092200129}
-  m_LocalRotation: {x: -0.70710623, y: -0.00084655586, z: -0.0008465557, w: 0.70710635}
+  m_LocalRotation: {x: -0.7071063, y: -0.0008454264, z: -0.0008454264, w: 0.7071063}
   m_LocalPosition: {x: 3.022, y: 2.15, z: -2.269}
-  m_LocalScale: {x: 0.03, y: 0.03, z: 0.03}
+  m_LocalScale: {x: 0.02, y: 0.020000001, z: 0.019999998}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -0.137}
 --- !u!33 &7042724673210246110
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -130,4 +130,4 @@ MonoBehaviour:
   foodName: streaky pork
   m_colors:
   - {r: 1, g: 0.6666667, b: 0, a: 0}
-  colorIndex: 0
+  - {r: 1, g: 0, b: 0.11461401, a: 0}

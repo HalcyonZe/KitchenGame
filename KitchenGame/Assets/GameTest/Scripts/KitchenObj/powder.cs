@@ -96,6 +96,13 @@ public class powder : Cooking
                     obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("bean", 5);
                 }
                 break;
+            case CookingTools.pepper:
+                UIController.Instance.OpenTip("»¨½·", 5);
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("pepper"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("pepper", 5);
+                }
+                break;
         }
     }
 

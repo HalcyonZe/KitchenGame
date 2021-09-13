@@ -28,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8126484476024285941}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.5682, y: 2.179, z: -2.867}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
@@ -111,7 +111,7 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6387327480635455680, guid: 1f83601dd5d806e409b3307333f4405e, type: 3}
 --- !u!114 &3377885059660115344
@@ -129,4 +129,5 @@ MonoBehaviour:
   m_foodState: 0
   foodName: "\u516B\u89D2"
   m_colors:
+  - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}

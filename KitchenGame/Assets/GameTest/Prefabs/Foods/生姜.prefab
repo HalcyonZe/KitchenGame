@@ -28,9 +28,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 687939774986632340}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.5682, y: 2.179, z: -2.692}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.4999998, y: 1.5, z: 1.4999998}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -129,4 +129,5 @@ MonoBehaviour:
   m_foodState: 0
   foodName: "\u751F\u59DC"
   m_colors:
+  - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}

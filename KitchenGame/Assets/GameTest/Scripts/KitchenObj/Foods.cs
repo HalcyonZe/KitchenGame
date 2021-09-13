@@ -20,7 +20,7 @@ public class Foods : BasicObj
     public FoodItem m_foodItem = new FoodItem();
     private float BlanchingTime = 0;
     private float CookingTime = 0;
-
+    private float FryTime = 0;
     #endregion
 
     #region ×é¼þ
@@ -48,6 +48,7 @@ public class Foods : BasicObj
                 FoodBoil();
                 break;
             case FoodState.fry:
+                FoodFry();
                 break;
         }
     }
@@ -115,6 +116,24 @@ public class Foods : BasicObj
             {
                 m_foodItem.handleScoreDic.Add("blanching", 5);
             }*/
+            m_foodState = FoodState.normal;
+        }
+    }
+
+    private void FoodFry()
+    {
+        if (FryTime < 10)
+        {
+            FryTime += Time.fixedDeltaTime;
+            float r = Mathf.Clamp(FryTime / 8, 0, 1);
+            float colorG = Mathf.Lerp(m_colors[0].g, m_colors[1].g, r);
+            float colorB = Mathf.Lerp(m_colors[0].b, m_colors[1].b, r);
+
+            Color color = new Color(m_colors[1].r, colorG, colorB);
+            m_material.SetColor("_BaseColor", color);
+        }
+        else
+        {
             m_foodState = FoodState.normal;
         }
     }

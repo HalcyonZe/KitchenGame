@@ -6,7 +6,7 @@ using DG.Tweening;
 public class Plates : BasicObj
 {
     public List<GameObject> Foods = new List<GameObject>();
-
+    private GameObject _water;
 
     private void FixedUpdate()
     {
@@ -80,9 +80,19 @@ public class Plates : BasicObj
         }
     }
 
+    private void OnParticleCollision(GameObject other)
+    {
+        _water = transform.GetChild(1).gameObject;
+        Color new_color = other.GetComponent<Renderer>().material.GetColor("_BaseColor");
+        _water.SetActive(true);
+        _water.GetComponent<Renderer>().material.SetColor("_Color", new_color);
+        
+    }
+
     public void SetTrash(GameObject Obj)
     {
         Vector3 pos = Obj.transform.GetChild(0).position;
+        _water.SetActive(false);
         if (Foods.Count > 0)
         {
             for (int i = 0; i < Foods.Count; i++)

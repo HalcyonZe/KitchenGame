@@ -241,7 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767dc4283c2f8d846a86a6133f73f3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_cooking: 2
+  m_cooking: 1
 --- !u!1 &6761168306544328351
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,7 +382,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: cc53b537b0becff4591768910a14a5e2, type: 2}
+  - {fileID: 2100000, guid: dd6491f8e577f97498f172802de04a77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5162,7 +5162,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4b83cabd97fffa94f972b49b0bf3ce36, type: 2}
+  - {fileID: 2100000, guid: dd6491f8e577f97498f172802de04a77, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
