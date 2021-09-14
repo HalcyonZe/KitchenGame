@@ -41,11 +41,6 @@ public class PlayerController : MonoBehaviour {
             dir = transform.forward * verticalMove + transform.right * horizontalMove;
             cc.Move(dir * Time.deltaTime);
 
-            /*if (Input.GetButtonDown("Jump") && isGround)
-            {
-                velocity.y = jumpSpeed;
-            }*/
-
             velocity.y -= gravity * Time.deltaTime;
             cc.Move(velocity * Time.deltaTime);
         }

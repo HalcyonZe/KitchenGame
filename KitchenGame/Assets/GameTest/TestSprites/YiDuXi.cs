@@ -17,7 +17,7 @@ public class YiDuXi : Dish
         _dishItem.foodScoreDic.Add(foodItem1, 5);
 
         FoodItem foodItem2 = new FoodItem();
-        foodItem2.foodName = "bamboo shoots";
+        foodItem2.foodName = "Ëñ";
         foodItem2.handleScoreDic.Add("cut", 5);
         foodItem2.handleScoreDic.Add("blanching", 5);
         _dishItem.foodScoreDic.Add(foodItem2, 5);
@@ -28,7 +28,7 @@ public class YiDuXi : Dish
         _dishItem.foodScoreDic.Add(foodItem3, 5);
 
         FoodItem foodItem4 = new FoodItem();
-        foodItem4.foodName = "ginger";
+        foodItem4.foodName = "½ª";
         _dishItem.foodScoreDic.Add(foodItem4, 5);
 
         FoodItem foodItem5 = new FoodItem();
@@ -36,7 +36,7 @@ public class YiDuXi : Dish
         _dishItem.foodScoreDic.Add(foodItem5, 5);
 
         FoodItem foodItem6 = new FoodItem();
-        foodItem6.foodName = "onion";
+        foodItem6.foodName = "´Ð";
         _dishItem.foodScoreDic.Add(foodItem6, 5);
 
     }

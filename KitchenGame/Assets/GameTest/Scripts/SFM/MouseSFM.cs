@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MouseSFM : MonoBehaviour
+public class MouseSFM : Singleton<MouseSFM>
 {
     private Dictionary<MouseState, BaseState> stateDic = new Dictionary<MouseState, BaseState>();
     private BaseState curState;
     public GameObject PickObj = null;
     public bool CanClick = true;
 
-    public static MouseSFM Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     // Start is called before the first frame update
     void Start()

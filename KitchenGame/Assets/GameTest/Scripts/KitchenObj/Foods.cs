@@ -112,10 +112,6 @@ public class Foods : BasicObj
         }
         else
         {
-            /*if (!m_foodItem.handleScoreDic.ContainsKey("blanching"))
-            {
-                m_foodItem.handleScoreDic.Add("blanching", 5);
-            }*/
             m_foodState = FoodState.normal;
         }
     }
@@ -125,7 +121,7 @@ public class Foods : BasicObj
         if (FryTime < 10)
         {
             FryTime += Time.fixedDeltaTime;
-            float r = Mathf.Clamp(FryTime / 8, 0, 1);
+            float r = Mathf.Clamp(FryTime / 10, 0, 1);
             float colorG = Mathf.Lerp(m_colors[0].g, m_colors[1].g, r);
             float colorB = Mathf.Lerp(m_colors[0].b, m_colors[1].b, r);
 

@@ -7,6 +7,16 @@ public class CookingWine : Cooking
 {
     private ParticleSystem ps;
 
+    public enum WineType
+    {
+        wine,
+        sauce,
+        oil,
+        haooil,
+    }
+
+    public WineType m_cooking;
+
     private void Awake()
     {
         ps = this.transform.GetChild(3).GetComponent<ParticleSystem>();
@@ -32,11 +42,25 @@ public class CookingWine : Cooking
             });
     }
 
+    public override void StopCooking()
+    {
+        if (Input.GetMouseButtonDown(1) && UseMouse)
+        {
+            UseMouse = false;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            PickObjs();
+            GameController.Instance.PlayerPlay();
+            UIController.Instance.CloseTip();
+        }
+
+    }
+
+    private float wineTime = 0;
     public override void MouseAction()
     {
         if (Input.GetMouseButton(0))
         {
-            //transform.DOShakePosition(0.3f, new Vector3(0, 0.15f, 0));
             ps.Play();
 
             Ray ray = new Ray(transform.position, transform.up);
@@ -46,15 +70,64 @@ public class CookingWine : Cooking
             {
                 GameObject obj = hit.transform.gameObject;
 
-                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("CookingWine"))
+                SetCooking(obj);
+            }
+
+            LayerMask layer2 = LayerMask.GetMask("Plate");
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, layer2))
+            {
+                wineTime += Time.fixedDeltaTime;
+                if (wineTime > 3.0f)
                 {
-                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("CookingWine", 5);
+                    //Debug.Log("hhh");
+                    switch (m_cooking)
+                    {
+                        case WineType.wine:
+                            UIController.Instance.OpenTip("¡œæ∆", 5);
+                            break;
+                        case WineType.sauce:
+                            UIController.Instance.OpenTip("Ω¥”Õ", 5);
+                            break;
+                        case WineType.oil:
+                            UIController.Instance.OpenTip("ª®…˙”Õ", 5);
+                            break;
+                        case WineType.haooil:
+                            UIController.Instance.OpenTip("∫ƒ”Õ", 5);
+                            break;
+                    }
+                    wineTime = 0;
                 }
             }
+
         }
         else
         {
             ps.Stop();
+        }
+    }
+
+    public void SetCooking(GameObject obj)
+    {
+        switch (m_cooking)
+        {
+            case WineType.wine:
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("¡œæ∆"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("¡œæ∆", 5);
+                }
+                break;
+            case WineType.sauce:
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("Ω¥”Õ"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("Ω¥”Õ", 5);
+                }
+                break;
+            case WineType.haooil:
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("∫ƒ”Õ"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("∫ƒ”Õ", 5);
+                }
+                break;
         }
     }
 
