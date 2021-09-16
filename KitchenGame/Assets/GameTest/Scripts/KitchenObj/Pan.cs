@@ -112,6 +112,7 @@ public class Pan : BasicObj
 
             if (m_panState == PanState.Cooking)
             {
+                m_audioSource.Play();
                 _smoke.SetActive(true);
                 if(Hasliquid==1)
                 {
@@ -326,6 +327,7 @@ public class Pan : BasicObj
         PanY = pos.y;
 
         MouseSFM.Instance.PickObj.transform.parent = null;
+        MouseSFM.Instance.PickObj = null;
         GameController.Instance.PlayerPause();
 
         transform.DOMove(pos, 0.3f).

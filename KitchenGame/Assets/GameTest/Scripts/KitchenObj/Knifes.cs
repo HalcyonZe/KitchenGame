@@ -43,11 +43,12 @@ public class Knifes : BasicObj
         GameController.Instance.PlayerPause();
 
         this.GetComponent<Collider>().enabled = false;
-        this.transform.localEulerAngles = new Vector3(0, 90, 0);
+        this.transform.localEulerAngles = new Vector3(0, 0, 0);
         knifeY = Obj.transform.position.y + 0.3f;
 
         transform.DOMove(new Vector3(Obj.transform.position.x, knifeY, Obj.transform.position.z), 0.3f).
             OnComplete(() => {
+                this.transform.localEulerAngles = new Vector3(0, MouseSFM.Instance.transform.eulerAngles.y - 90, 0);
                 Ray ray = new Ray(transform.position, -transform.up);
                 RaycastHit hit;
                 if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("UsefulPlane")))

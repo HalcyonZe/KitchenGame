@@ -1,26 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameController : MonoBehaviour
+public class GameController : Singleton<GameController>
 {
-    public static GameController Instance;
+    public Image StopImage;
 
-    private void Awake()
+    private void FixedUpdate()
     {
-        Instance = this;
+        GameStop();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void GameStop()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PlayerPause();
+            Cursor.lockState = CursorLockMode.None;
+            StopImage.gameObject.SetActive(true);
+        }
     }
 
     public void PlayerPause()

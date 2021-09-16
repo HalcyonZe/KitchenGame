@@ -16,9 +16,9 @@ public class Dish : MonoBehaviour
 
     }
 
-    public virtual void ScoreCalc(List<FoodItem> foodList)
+    public virtual int ScoreCalc(List<FoodItem> foodList)
     {
-
+        return Score;
     }
 
     public void CheckDish(List<FoodItem> foodList)
@@ -31,6 +31,7 @@ public class Dish : MonoBehaviour
             {
                 FindHandle(_foodList, food);
                 Score += _dishItem.foodScoreDic[food];
+                //Debug.Log(food.foodName);
                 //_dishItem.foodScoreDic.Remove(food);
             }
         }
@@ -63,6 +64,7 @@ public class Dish : MonoBehaviour
                     if (foodList[i].handleScoreDic.ContainsKey(handle))
                     {
                         Score += _foodItem.handleScoreDic[handle];
+                        //Debug.Log(_foodItem.foodName+" "+handle);
                         i = foodList.Count;
                     }
                 }
@@ -74,6 +76,7 @@ public class Dish : MonoBehaviour
             }
         }
     }
+
 
     /*public void RemoveFood(string foodName)
     {

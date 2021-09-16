@@ -112,6 +112,10 @@ public class Foods : BasicObj
         }
         else
         {
+            if (!m_foodItem.handleScoreDic.ContainsKey("fried"))
+            {
+                m_foodItem.handleScoreDic.Add("fried", 5);
+            }
             m_foodState = FoodState.normal;
         }
     }

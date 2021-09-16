@@ -10,6 +10,7 @@ public class powder : Cooking
         salt,
         pepper,
         bean,
+        sugar,
     }
 
     public CookingTools m_cooking;
@@ -101,6 +102,13 @@ public class powder : Cooking
                 if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("pepper"))
                 {
                     obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("pepper", 5);
+                }
+                break;
+            case CookingTools.sugar:
+                UIController.Instance.OpenTip("лг", 5);
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("sugar"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("sugar", 5);
                 }
                 break;
         }

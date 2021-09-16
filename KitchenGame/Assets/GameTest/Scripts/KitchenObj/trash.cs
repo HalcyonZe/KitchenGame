@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class trash : BasicObj
 {
-    public void GetTrash()
+    public override void PutObjs()
     {
-
+        base.PutObjs();
     }
 }

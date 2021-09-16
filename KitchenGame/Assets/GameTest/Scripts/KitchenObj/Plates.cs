@@ -8,6 +8,11 @@ public class Plates : BasicObj
     public List<GameObject> Foods = new List<GameObject>();
     private GameObject _water;
 
+    private void Awake()
+    {
+        _water = transform.GetChild(1).gameObject;
+    }
+
     private void FixedUpdate()
     {
         PlateUpdate();
@@ -35,8 +40,15 @@ public class Plates : BasicObj
 
     public override void PickObjs()
     {
-        base.PickObjs();
-        MouseSFM.Instance.SwitchState(MouseState.HasPlate);
+        this.GetComponent<Rigidbody>().isKinematic = true;
+        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
+                        OnComplete(() => {
+
+                            this.transform.parent = MouseSFM.Instance.transform;
+                            MouseSFM.Instance.SwitchState(MouseState.HasPlate);
+                        });
+        MouseSFM.Instance.PickObj = this.gameObject;
+        
     }
 
     public override void UseTools(GameObject Obj)
@@ -82,7 +94,7 @@ public class Plates : BasicObj
 
     private void OnParticleCollision(GameObject other)
     {
-        _water = transform.GetChild(1).gameObject;
+        //_water = transform.GetChild(1).gameObject;
         Color new_color = other.GetComponent<Renderer>().material.GetColor("_BaseColor");
         _water.SetActive(true);
         _water.GetComponent<Renderer>().material.SetColor("_Color", new_color);

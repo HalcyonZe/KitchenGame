@@ -7,7 +7,7 @@ public class YiDuXi : Dish
     public override void ListInit()
     {
         _dishItem = new DishItem();
-        _dishItem.dishname = "YiDuXu";
+        _dishItem.dishname = "ëçóÆÏÊ";
 
         FoodItem foodItem1 = new FoodItem();
         foodItem1.foodName= "streaky pork";
@@ -22,10 +22,10 @@ public class YiDuXi : Dish
         foodItem2.handleScoreDic.Add("blanching", 5);
         _dishItem.foodScoreDic.Add(foodItem2, 5);
 
-        FoodItem foodItem3 = new FoodItem();
+        /*FoodItem foodItem3 = new FoodItem();
         foodItem3.foodName = "salty streaky";
         foodItem3.handleScoreDic.Add("blanching", 10);
-        _dishItem.foodScoreDic.Add(foodItem3, 5);
+        _dishItem.foodScoreDic.Add(foodItem3, 5);*/
 
         FoodItem foodItem4 = new FoodItem();
         foodItem4.foodName = "½ª";
@@ -42,10 +42,11 @@ public class YiDuXi : Dish
     }
 
 
-    public override void ScoreCalc(List<FoodItem> foodList)
+    public override int ScoreCalc(List<FoodItem> foodList)
     {
         CheckDish(foodList);
-        Debug.Log(Score);
+        //Debug.Log(Score);
+        return Score;
     }
 
 }
