@@ -22,7 +22,8 @@ public class Foods : BasicObj
     private float CookingTime = 0;
     private float FryTime = 0;
 
-    private float m_Blanching = 5, m_Cooking = 8, m_Fry = 10;
+    public float m_Blanching = 5, m_Cooking = 8, m_Fry = 10;
+    private int TimeScale = 1;
     #endregion
 
     #region ×é¼þ
@@ -39,19 +40,23 @@ public class Foods : BasicObj
 
     private void Update()
     {
-        switch (m_foodState)
+        if (!TimeController.Instance.IsTimeOut)
         {
-            case FoodState.normal:
-                break;
-            case FoodState.Blanching:
-                FoodBlanching();
-                break;
-            case FoodState.boil:
-                FoodBoil();
-                break;
-            case FoodState.fry:
-                FoodFry();
-                break;
+            this.TimeScale = TimeController.Instance.TimeScale;
+            switch (m_foodState)
+            {
+                case FoodState.normal:
+                    break;
+                case FoodState.Blanching:
+                    FoodBlanching();
+                    break;
+                case FoodState.boil:
+                    FoodBoil();
+                    break;
+                case FoodState.fry:
+                    FoodFry();
+                    break;
+            }
         }
     }
 
@@ -83,7 +88,7 @@ public class Foods : BasicObj
     {
         if (BlanchingTime < m_Blanching)
         {
-            BlanchingTime += Time.fixedDeltaTime;
+            BlanchingTime += Time.fixedDeltaTime * TimeScale;
             float r = Mathf.Clamp(BlanchingTime / m_Blanching, 0, 1);
             float colorG = Mathf.Lerp(1, (1 + m_colors[0].g) / 2, r);
             float colorB = Mathf.Lerp(1, (1 - m_colors[0].b) / 2, r);
@@ -104,7 +109,7 @@ public class Foods : BasicObj
     {
         if (CookingTime < m_Cooking)
         {
-            CookingTime += Time.fixedDeltaTime;
+            CookingTime += Time.fixedDeltaTime * TimeScale;
             float r = Mathf.Clamp(CookingTime / m_Cooking, 0, 1);
             float colorG = Mathf.Lerp((1 + m_colors[0].g) / 2, m_colors[0].g, r);
             float colorB = Mathf.Lerp((1 - m_colors[0].b) / 2, m_colors[0].b, r);
@@ -126,7 +131,7 @@ public class Foods : BasicObj
     {
         if (FryTime < m_Fry)
         {
-            FryTime += Time.fixedDeltaTime;
+            FryTime += Time.fixedDeltaTime * TimeScale;
             float r = Mathf.Clamp(FryTime / m_Fry, 0, 1);
             float colorG = Mathf.Lerp(m_colors[0].g, m_colors[1].g, r);
             float colorB = Mathf.Lerp(m_colors[0].b, m_colors[1].b, r);

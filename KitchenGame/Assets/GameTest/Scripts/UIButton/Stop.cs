@@ -23,6 +23,7 @@ public class Stop : MonoBehaviour
 
     private void PlayButton()
     {
+        TimeController.Instance.TimeIn();
         GameController.Instance.PlayerPlay();
         Cursor.lockState = CursorLockMode.Locked;
         this.gameObject.SetActive(false);

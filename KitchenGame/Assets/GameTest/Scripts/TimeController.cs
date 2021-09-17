@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TimeController : MonoBehaviour
+public class TimeController : Singleton<TimeController>
 {
-    //public Image image;
-    public Text hoursTex, minutesTex;
     public Text _timeText;
-    private int hours = 13, minutes = 30;
-    private int seconds;
+    private int hours , minutes , seconds;
     private float timeSpend = 50395;
+    private float m_speedupTime = 0;
 
     public int TimeScale = 1;
 
+    public bool IsTimeOut = false;
+    public bool IsSpeedUp = false;
+
     private void FixedUpdate()
     {
-        TimeUpdate();
+        if (!IsTimeOut)
+        {
+            TimeUpdate();
+            TimeAcceleration();
+            SpeedUpTime();
+        }
     }
 
     private void TimeUpdate()
@@ -34,6 +40,55 @@ public class TimeController : MonoBehaviour
         minutes = (int)minutes % 60;
         _timeText.text = hours.ToString("00")+": "+minutes.ToString("00")+":"+seconds.ToString("00");*/
 
+    }
+
+    private void TimeAcceleration()
+    {
+        if (Input.GetKeyDown(KeyCode.T)&&!IsSpeedUp)
+        {
+            IsSpeedUp = true;
+            TimeScale = 60;
+            m_speedupTime = 60;
+            //StartCoroutine(SpeedTime());
+        }
+    }
+
+    private void SpeedUpTime()
+    {
+        if (IsSpeedUp)
+        {
+            m_speedupTime -= Time.fixedDeltaTime;
+            Debug.Log(m_speedupTime);
+            if(m_speedupTime<=0)
+            {
+                IsSpeedUp = false;
+                TimeScale = 1;
+            }
+        }
+    }
+
+    #region 协程倒计时
+    /*IEnumerator SpeedTime()
+    {
+        while(m_speedupTime>0)
+        {
+            Debug.Log(m_speedupTime);
+            yield return new WaitForSeconds(1);
+            m_speedupTime--;
+        }
+        TimeScale = 1;
+        IsSpeedUp = false;
+    }*/
+    #endregion
+
+    public void TimeOut()
+    {
+        IsTimeOut = true;
+    }
+
+    public void TimeIn()
+    {
+        IsTimeOut = false;
     }
 
 }

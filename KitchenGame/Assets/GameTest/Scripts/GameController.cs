@@ -16,6 +16,7 @@ public class GameController : Singleton<GameController>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            TimeController.Instance.TimeOut();
             PlayerPause();
             Cursor.lockState = CursorLockMode.None;
             StopImage.gameObject.SetActive(true);
