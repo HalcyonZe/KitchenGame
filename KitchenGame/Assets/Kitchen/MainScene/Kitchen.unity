@@ -8498,6 +8498,7 @@ GameObject:
   - component: {fileID: 522673914}
   - component: {fileID: 522673916}
   - component: {fileID: 522673915}
+  - component: {fileID: 522673917}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -8703,6 +8704,22 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: 46b162b75f8fd6042b630b1be8911eb3, type: 3}
   - audioName: Fried
     audioClip: {fileID: 8300000, guid: f26f4b73b1f145d469fce6eee4446c64, type: 3}
+--- !u!114 &522673917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 522673910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30569cb2f7f90e24ca7b0da27ccb8bf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoursTex: {fileID: 0}
+  minutesTex: {fileID: 0}
+  _timeText: {fileID: 4897829016916972959}
+  TimeScale: 1
 --- !u!1 &527337182
 GameObject:
   m_ObjectHideFlags: 0
@@ -21887,7 +21904,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4897829017354664690}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -21942,10 +21959,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 30
     m_FontStyle: 1
     m_BestFit: 0
-    m_MinSize: 4
+    m_MinSize: 3
     m_MaxSize: 50
     m_Alignment: 4
     m_AlignByGeometry: 0
@@ -22163,8 +22180,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4897829018733502570}
   - {fileID: 4897829016916972952}
+  - {fileID: 4897829018733502570}
   m_Father: {fileID: 4897829017928257310}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -22190,7 +22207,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!222 &4897829017564842472
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24092,7 +24109,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4897829017354664690}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24114,7 +24131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4897829018804918400
 RectTransform:
   m_ObjectHideFlags: 0
