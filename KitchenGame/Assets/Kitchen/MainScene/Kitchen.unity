@@ -6408,6 +6408,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_foodState: 0
   foodName: "\u6D0B\u8471"
+  m_Blanching: 5
+  m_Cooking: 8
+  m_Fry: 10
   m_colors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
@@ -7345,6 +7348,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_foodState: 0
   foodName: "\u6D0B\u8471"
+  m_Blanching: 5
+  m_Cooking: 8
+  m_Fry: 10
   m_colors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
@@ -8300,6 +8306,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_foodState: 0
   foodName: "\u6D0B\u8471"
+  m_Blanching: 5
+  m_Cooking: 8
+  m_Fry: 10
   m_colors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
@@ -8719,6 +8728,10 @@ MonoBehaviour:
   _timeText: {fileID: 4897829016916972959}
   TimeScale: 1
   IsTimeOut: 0
+  IsSpeedUp: 0
+  hours: 13
+  minutes: 59
+  seconds: 50
 --- !u!1 &527337182
 GameObject:
   m_ObjectHideFlags: 0
@@ -12166,6 +12179,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_foodState: 0
   foodName: "\u6D0B\u8471"
+  m_Blanching: 5
+  m_Cooking: 8
+  m_Fry: 10
   m_colors:
   - {r: 1, g: 1, b: 1, a: 0}
   - {r: 1, g: 1, b: 1, a: 0}
@@ -13851,6 +13867,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_foodState: 0
   foodName: 
+  m_Blanching: 5
+  m_Cooking: 8
+  m_Fry: 10
   m_colors: []
 --- !u!54 &1252991245
 Rigidbody:

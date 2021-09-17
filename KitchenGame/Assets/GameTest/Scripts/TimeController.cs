@@ -6,14 +6,26 @@ using UnityEngine.UI;
 public class TimeController : Singleton<TimeController>
 {
     public Text _timeText;
-    private int hours , minutes , seconds;
-    private float timeSpend = 50395;
+
+    private float timeSpend;//= 50395;
     private float m_speedupTime = 0;
 
     public int TimeScale = 1;
 
     public bool IsTimeOut = false;
     public bool IsSpeedUp = false;
+
+
+    [Header("自定义时间")]
+    public int hours;
+    public int minutes;
+    public int seconds;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        timeSpend = hours * 3600 + minutes * 60 + seconds;
+    }
 
     private void FixedUpdate()
     {
