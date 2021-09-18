@@ -6,6 +6,7 @@ using System;
 
 public class BasicObj : MonoBehaviour
 {
+    public string ObjName;
     public virtual void UseTools(GameObject Obj)
     {
 

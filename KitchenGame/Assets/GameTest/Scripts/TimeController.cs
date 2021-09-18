@@ -29,6 +29,7 @@ public class TimeController : Singleton<TimeController>
 
     private void FixedUpdate()
     {
+        DayController.Instance.timeOfDay = hours + (float)minutes / 60;
         if (!IsTimeOut)
         {
             TimeUpdate();
@@ -43,6 +44,11 @@ public class TimeController : Singleton<TimeController>
         hours = (int)timeSpend / 3600;
         minutes = ((int)timeSpend - hours * 3600) / 60;
         seconds = (int)timeSpend - hours * 3600 - minutes * 60;
+        if(hours>=24.0f)
+        {
+            hours = 0;
+            timeSpend = 0;
+        }
         _timeText.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
 
         /*seconds += Time.fixedDeltaTime;       

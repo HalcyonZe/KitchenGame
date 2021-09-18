@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.HighDefinition;
 
-public class DayController : MonoBehaviour
+public class DayController : Singleton<DayController>
 {
     [Range(0,24)]
     public float timeOfDay; 
@@ -24,12 +24,21 @@ public class DayController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         timeOfDay += Time.deltaTime * orbitSpeed;
         if(timeOfDay>24)
             timeOfDay=0;
          UpdateTime();
+    }*/
+
+    private void FixedUpdate()
+    {
+        /*timeOfDay += Time.deltaTime * orbitSpeed;
+        if (timeOfDay > 24)
+            timeOfDay = 0;*/
+        //Debug.Log(timeOfDay);
+        UpdateTime();
     }
 
     private void Onvalidate(){

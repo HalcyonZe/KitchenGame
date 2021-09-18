@@ -5014,7 +5014,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -5045,6 +5045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af917d467ad8014681916acee8b62b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjName: "\u82B1\u751F\u6CB9"
+  m_cooking: 2
 --- !u!1 &7137500347881551460
 GameObject:
   m_ObjectHideFlags: 0

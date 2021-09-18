@@ -5073,9 +5073,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8714452032008110974}
-  m_LocalRotation: {x: -0, y: -0.6968658, z: -0, w: 0.71720165}
+  m_LocalRotation: {x: 0, y: -0.6968647, z: 0, w: 0.71720266}
   m_LocalPosition: {x: 3.135, y: 2.179, z: -3.411}
-  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
+  m_LocalScale: {x: 0.39999995, y: 0.4, z: 0.39999995}
   m_Children:
   - {fileID: 2352069007576409793}
   - {fileID: 1798020270941223697}
@@ -5094,7 +5094,7 @@ Rigidbody:
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -5125,3 +5125,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3af917d467ad8014681916acee8b62b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjName: "\u9171\u6CB9"
+  m_cooking: 1

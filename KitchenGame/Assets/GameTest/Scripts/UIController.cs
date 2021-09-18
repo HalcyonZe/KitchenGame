@@ -7,6 +7,8 @@ public class UIController : Singleton<UIController>
 {
     #region ×é¼þ
     public Sprite point, click;
+    public Image Objs;
+    private Text ObjName;
     private Image image;
 
     private GameObject tip;
@@ -21,6 +23,8 @@ public class UIController : Singleton<UIController>
         tip = this.transform.GetChild(1).GetChild(2).gameObject;
         toolName = tip.transform.GetChild(1).GetComponent<Text>();
         UiNumber = tip.transform.GetChild(2).GetComponent<Text>();
+
+        ObjName = Objs.transform.GetChild(0).GetComponent<Text>();
     }
 
     public void ToPoint()
@@ -57,6 +61,17 @@ public class UIController : Singleton<UIController>
         toolName.text = name;
         useNumber = 0;
         UiNumber.text = useNumber.ToString();
+    }
+
+    public void ShowObjName(string name)
+    {
+        Objs.gameObject.SetActive(true);
+        ObjName.text = name;
+    }
+
+    public void CloseObjName()
+    {
+        Objs.gameObject.SetActive(false);
     }
 
 }

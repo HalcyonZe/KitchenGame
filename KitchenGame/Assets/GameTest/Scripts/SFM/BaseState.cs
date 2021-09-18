@@ -48,19 +48,27 @@ public abstract class BaseState
             Debug.DrawLine(ray.origin, hitInfo.point);
             UIController.Instance.ToClick();
 
+            GameObject gameObj = hitInfo.collider.gameObject;
+            if(gameObj.layer==LayerMask.NameToLayer("Foods")|| gameObj.layer == LayerMask.NameToLayer("Tools"))
+            {
+                UIController.Instance.ShowObjName(gameObj.GetComponent<BasicObj>().ObjName);
+            }
+
             if (Input.GetMouseButtonUp(0))
             {
-                GameObject gameObj = hitInfo.collider.gameObject;
+                //GameObject gameObj = hitInfo.collider.gameObject;
 
                 MouseAction(gameObj);
 
                 UIController.Instance.ToPoint();
+                UIController.Instance.CloseObjName();
             }
 
         }
         else
         {
             UIController.Instance.ToPoint();
+            UIController.Instance.CloseObjName();
         }
     }
 

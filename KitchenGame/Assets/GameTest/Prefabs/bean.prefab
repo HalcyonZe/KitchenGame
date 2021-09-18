@@ -241,6 +241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 767dc4283c2f8d846a86a6133f73f3a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjName: 
   m_cooking: 1
 --- !u!1 &6761168306544328351
 GameObject:
