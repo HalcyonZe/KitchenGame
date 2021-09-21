@@ -126,12 +126,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 576f073c1356d5d40ba4c3a7564082fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ObjName: "\u70E7\u8089"
+  ObjName: "\u706B\u817F"
   m_foodState: 0
   foodName: "\u706B\u817F"
   m_Blanching: 5
   m_Cooking: 8
   m_Fry: 10
+  m_Bake: 100
   m_colors:
   - {r: 1, g: 0.6666667, b: 0, a: 0}
   - {r: 1, g: 0.0677495, b: 0, a: 0}

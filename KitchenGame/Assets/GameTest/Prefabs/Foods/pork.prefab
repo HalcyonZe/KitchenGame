@@ -128,10 +128,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjName: "\u732A\u8089"
   m_foodState: 0
-  foodName: streaky pork
-  m_Blanching: 5
-  m_Cooking: 8
+  foodName: "\u732A\u8089"
+  m_Blanching: 300
+  m_Cooking: 7200
   m_Fry: 10
+  m_Bake: 100
   m_colors:
   - {r: 1, g: 0.6666667, b: 0, a: 0}
   - {r: 1, g: 0, b: 0.11461401, a: 0}

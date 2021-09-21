@@ -33,11 +33,13 @@ public class Pan : BasicObj
     private ParticleSystem ps1, ps2;
     #endregion
 
-    
+
     #region 高度属性
     [Header("高度信息")]
-    public float MinHeight, MaxHeight;
-    public float MinScale, MaxScale;
+    public float MinHeight;
+    public float MaxHeight;
+    public float MinScale;
+    public float MaxScale;
     #endregion
 
     private void Start()
@@ -69,12 +71,14 @@ public class Pan : BasicObj
                 {
                     food.GetComponent<Foods>().m_foodState = Foods.FoodState.normal;
                     _foodDic.Remove(food);
+                    i--;
                 }          
                 else if((this.transform.position.y- food.transform.position.y)> foodDist)
                 {
                     food.GetComponent<Foods>().m_foodState = Foods.FoodState.normal;
                     _foodDic.Remove(food);
                     food.transform.parent = null;
+                    i--;
                 }
             }
         }
@@ -160,7 +164,7 @@ public class Pan : BasicObj
                 for (int i = 0; i < _foodDic.Count; i++)
                 {
                     GameObject food = _foodDic.ElementAt(i).Key;
-                    food.GetComponent<Foods>().m_foodState = Foods.FoodState.Blanching;
+                    food.GetComponent<Foods>().m_foodState = Foods.FoodState.boil;
                 }
             }
             else if (Hasliquid == 2)
@@ -271,6 +275,11 @@ public class Pan : BasicObj
     {
         GameObject obj = MouseSFM.Instance.PickObj;
         
+        if(obj.TryGetComponent<dough>(out dough dough))
+        {
+            return;
+        }
+
         obj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
             OnComplete(() => {
                 if (Hasliquid == 1)

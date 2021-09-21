@@ -13,6 +13,7 @@ public class CookingWine : Cooking
         sauce,
         oil,
         haooil,
+        honey,
     }
 
     public WineType m_cooking;
@@ -94,8 +95,26 @@ public class CookingWine : Cooking
                         case WineType.haooil:
                             UIController.Instance.OpenTip("∫ƒ”Õ", 5);
                             break;
+                        case WineType.honey:
+                            UIController.Instance.OpenTip("∑‰√€", 5);
+                            break;
                     }
                     wineTime = 0;
+                }
+            }
+
+            RaycastHit hit2;
+            LayerMask layer3 = LayerMask.GetMask("soup");
+            if (Physics.Raycast(ray, out hit2, Mathf.Infinity, layer3))
+            {
+                GameObject obj2 = hit2.transform.GetChild(1).gameObject;
+                if (obj2.TryGetComponent<Soup>(out Soup soup))
+                {
+                    obj2.GetComponent<Soup>().AddMat(this.ObjName);
+                }
+                else
+                {
+                    Debug.Log("Fuck!!!");
                 }
             }
 
@@ -126,6 +145,12 @@ public class CookingWine : Cooking
                 if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("∫ƒ”Õ"))
                 {
                     obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("∫ƒ”Õ", 5);
+                }
+                break;
+            case WineType.honey:
+                if (!obj.GetComponent<Foods>().m_foodItem.handleScoreDic.ContainsKey("∑‰√€"))
+                {
+                    obj.GetComponent<Foods>().m_foodItem.handleScoreDic.Add("∑‰√€", 5);
                 }
                 break;
         }

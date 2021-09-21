@@ -76,6 +76,17 @@ public class powder : Cooking
                 GameObject obj = hit.transform.gameObject;
                 SetCooking(obj);
             }
+
+            RaycastHit hit2;
+            LayerMask layer3 = LayerMask.GetMask("soup");
+            if (Physics.Raycast(ray, out hit2, Mathf.Infinity, layer3))
+            {
+                GameObject obj2 = hit2.transform.GetChild(1).gameObject;
+                if (obj2.TryGetComponent<Soup>(out Soup soup))
+                {
+                    obj2.GetComponent<Soup>().AddMat(this.ObjName);
+                }
+            }
         }
     }
 

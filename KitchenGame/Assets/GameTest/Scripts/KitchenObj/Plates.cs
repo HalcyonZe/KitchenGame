@@ -41,7 +41,7 @@ public class Plates : BasicObj
     public override void PickObjs()
     {
         this.GetComponent<Rigidbody>().isKinematic = true;
-        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(0).position, 0.1f).
+        this.transform.DOMove(MouseSFM.Instance.transform.GetChild(1).position, 0.1f).
                         OnComplete(() => {
 
                             this.transform.parent = MouseSFM.Instance.transform;
@@ -68,14 +68,24 @@ public class Plates : BasicObj
 
     public override void PutObjs()
     {
-        MouseSFM.Instance.PickObj.transform.parent = this.transform;
-        MouseSFM.Instance.PickObj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
+        Vector3 pos = new Vector3();
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit = new RaycastHit();
+        if (Physics.Raycast(ray, out hit))
+        {
+            pos = hit.point;
+        }
+
+
+        GameObject obj = MouseSFM.Instance.PickObj;
+        obj.transform.parent = this.transform;
+        obj.transform.DOMove(/*this.transform.GetChild(0).position*/pos+new Vector3(0,0.1f,0), 0.3f).
             OnComplete(() => {
                 AudioController.Instance.SetAudioPlay("Put");
-                MouseSFM.Instance.PickObj.GetComponent<Rigidbody>().isKinematic = false;
-                MouseSFM.Instance.PickObj.GetComponent<Collider>().enabled = true;
-                Foods.Add(MouseSFM.Instance.PickObj);
-                MouseSFM.Instance.PickObj = null;          
+                obj.GetComponent<Rigidbody>().isKinematic = false;
+                obj.GetComponent<Collider>().enabled = true;
+                Foods.Add(obj);
+                obj = null;          
             });
         MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
@@ -116,4 +126,20 @@ public class Plates : BasicObj
             Foods.Clear();
         }
     }
+
+    public void GetSoup()
+    {
+        GameObject obj = MouseSFM.Instance.PickObj;
+        obj.transform.parent = this.transform;
+        obj.transform.DOMove(this.transform.GetChild(0).position, 0.3f).
+            OnComplete(() => {
+                AudioController.Instance.SetAudioPlay("Put");
+                obj.GetComponent<Rigidbody>().isKinematic = false;
+                obj.GetComponent<Collider>().enabled = true;
+                Foods.Add(obj);
+                obj = null;
+            });
+        MouseSFM.Instance.SwitchState(MouseState.Nothing);
+    }
+
 }

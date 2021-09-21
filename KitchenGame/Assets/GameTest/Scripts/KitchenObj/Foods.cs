@@ -11,6 +11,7 @@ public class Foods : BasicObj
         Blanching,
         boil,
         fry,
+        bake,
     }
     public FoodState m_foodState = FoodState.normal;
     #endregion
@@ -21,8 +22,9 @@ public class Foods : BasicObj
     private float BlanchingTime = 0;
     private float CookingTime = 0;
     private float FryTime = 0;
+    private float BakeTime = 0;
 
-    public float m_Blanching = 5, m_Cooking = 8, m_Fry = 10;
+    public float m_Blanching = 5, m_Cooking = 8, m_Fry = 10, m_Bake = 100;
     private int TimeScale = 1;
     #endregion
 
@@ -55,6 +57,9 @@ public class Foods : BasicObj
                     break;
                 case FoodState.fry:
                     FoodFry();
+                    break;
+                case FoodState.bake:
+                    FoodBake();
                     break;
             }
         }
@@ -119,11 +124,24 @@ public class Foods : BasicObj
         }
         else
         {
-            if (!m_foodItem.handleScoreDic.ContainsKey("fried"))
+            if (!m_foodItem.handleScoreDic.ContainsKey("boiled"))
             {
-                m_foodItem.handleScoreDic.Add("fried", 5);
+                m_foodItem.handleScoreDic.Add("boiled", 5);
             }
-            m_foodState = FoodState.normal;
+        }
+        if (CookingTime >= 3600)
+        {
+            if (!m_foodItem.handleScoreDic.ContainsKey("boiledOneHour"))
+            {
+                m_foodItem.handleScoreDic.Add("boiledOneHour", 10);
+            }
+        }
+        if (CookingTime >= 7200)
+        {
+            if (!m_foodItem.handleScoreDic.ContainsKey("boiledTwoHour"))
+            {
+                m_foodItem.handleScoreDic.Add("boiledTwoHour", 10);
+            }
         }
     }
 
@@ -141,6 +159,32 @@ public class Foods : BasicObj
         }
         else
         {
+            if (!m_foodItem.handleScoreDic.ContainsKey("fried"))
+            {
+                m_foodItem.handleScoreDic.Add("fried", 5);
+            }
+            m_foodState = FoodState.normal;
+        }
+    }
+
+    private void FoodBake()
+    {
+        if (BakeTime < m_Bake)
+        {
+            BakeTime += Time.fixedDeltaTime * TimeScale;
+            float r = Mathf.Clamp(BakeTime / m_Bake, 0, 1);
+            float colorG = Mathf.Lerp(1, m_colors[1].g, r);
+            float colorB = Mathf.Lerp(1, m_colors[1].b, r);
+
+            Color color = new Color(m_colors[1].r, colorG, colorB);
+            m_material.SetColor("_BaseColor", color);
+        }
+        else
+        {
+            if (!m_foodItem.handleScoreDic.ContainsKey("bake"))
+            {
+                m_foodItem.handleScoreDic.Add("bake", 5);
+            }
             m_foodState = FoodState.normal;
         }
     }

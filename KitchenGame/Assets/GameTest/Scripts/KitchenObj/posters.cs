@@ -6,13 +6,15 @@ using UnityEngine.UI;
 public class posters : BasicObj
 {
     public Image image;
-    public Text text1, text2, text3;
+    public List<Text> texts;
 
     public enum dishState
     {
         tofu,
         chicken,
         yiduxu,
+        dongpo,
+        duck,
     }
     public dishState m_dishState;
 
@@ -27,21 +29,37 @@ public class posters : BasicObj
         {
                         
             case dishState.yiduxu:
-                text1.gameObject.SetActive(true);
-                text2.gameObject.SetActive(false);
-                text3.gameObject.SetActive(false);
+                SetText(0);
                 break;
             case dishState.tofu:
-                text1.gameObject.SetActive(false);
-                text2.gameObject.SetActive(true);
-                text3.gameObject.SetActive(false);
+                SetText(1);
                 break;
             case dishState.chicken:
-                text1.gameObject.SetActive(false);
-                text2.gameObject.SetActive(false);
-                text3.gameObject.SetActive(true);
+                SetText(2);
+                break;
+            case dishState.dongpo:
+                SetText(3);
+                break;
+            case dishState.duck:
+                SetText(4);
                 break;
         }
 
     }
+
+    public void SetText(int t)
+    {
+        for(int i=0;i<texts.Count;i++)
+        {
+            if(i==t)
+            {
+                texts[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                texts[i].gameObject.SetActive(false);
+            }
+        }
+    }
+
 }

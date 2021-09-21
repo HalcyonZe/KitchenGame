@@ -51,7 +51,7 @@ public class ScoreController : Singleton<ScoreController>
     public void SetCurDish()
     {
         current_num++;
-        if(current_num<3)
+        if(current_num<5)
         {
             current_Dish = dishList[current_num];
             current_Dish.ListInit();
@@ -59,7 +59,7 @@ public class ScoreController : Singleton<ScoreController>
             GameController.Instance.PlayerPlay();
             Cursor.lockState = CursorLockMode.Locked;
         }
-        else
+        else if(current_num==5)
         {
             Debug.Log("End");
             SceneManager.LoadScene(0);

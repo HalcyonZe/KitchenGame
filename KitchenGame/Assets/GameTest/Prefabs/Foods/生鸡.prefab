@@ -130,8 +130,9 @@ MonoBehaviour:
   m_foodState: 0
   foodName: "\u9E21"
   m_Blanching: 5
-  m_Cooking: 8
+  m_Cooking: 1200
   m_Fry: 10
+  m_Bake: 100
   m_colors:
   - {r: 1, g: 0.6517962, b: 0, a: 0}
   - {r: 1, g: 0.08789868, b: 0, a: 0}

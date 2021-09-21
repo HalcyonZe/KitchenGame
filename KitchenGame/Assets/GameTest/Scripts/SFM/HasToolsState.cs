@@ -21,6 +21,18 @@ public class HasToolsState : BaseState
         {
             layer = LayerMask.GetMask("Plate") | LayerMask.GetMask("Plane");
         }
+        if (MouseSFM.Instance.PickObj.TryGetComponent<smallPlate>(out smallPlate smallPlate))
+        {
+            layer = LayerMask.GetMask("soup") | LayerMask.GetMask("Plane") | LayerMask.GetMask("Plate");
+        }
+        if (MouseSFM.Instance.PickObj.TryGetComponent<spoon>(out spoon spoon))
+        {
+            layer = LayerMask.GetMask("soup") | LayerMask.GetMask("Plane");
+        }
+        if (MouseSFM.Instance.PickObj.TryGetComponent<Lid>(out Lid lid))
+        {
+            layer = LayerMask.GetMask("UsefulPlane") | LayerMask.GetMask("Plane");
+        }
         base.OnEnter();
     }
 
@@ -39,10 +51,26 @@ public class HasToolsState : BaseState
                 MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
                 break;
             case "Plate":
-                MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
+                if (Obj.TryGetComponent<Plates>(out Plates plates) && MouseSFM.Instance.PickObj.TryGetComponent<smallPlate>(out smallPlate smallPlate))
+                {
+                    plates.PutObjs();
+                }
+                else if(!MouseSFM.Instance.PickObj.TryGetComponent<smallPlate>(out smallPlate smallPlate2))
+                {
+                    MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
+                }
                 break;
             case "dough":
                 MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
+                break;
+            case "soup":
+                MouseSFM.Instance.PickObj.GetComponent<BasicObj>().UseTools(Obj);
+                break;
+            case "UsefulPlane":
+                if (Obj.TryGetComponent<FoodSteamer>(out FoodSteamer foodSteamer))
+                {
+                    Obj.GetComponent<BasicObj>().PutObjs();
+                }
                 break;
         }
     }

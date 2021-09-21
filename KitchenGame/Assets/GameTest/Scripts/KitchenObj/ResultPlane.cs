@@ -28,11 +28,36 @@ public class ResultPlane : BasicObj
                 {
                     for (int i = 0; i < plates.Foods.Count; i++)
                     {
-                        FoodItem foodItem = new FoodItem();
-                        foodItem.foodName = plates.Foods[i].GetComponent<Foods>().m_foodItem.foodName;
-                        foodItem.handleScoreDic = new Dictionary<string, int>(plates.Foods[i].GetComponent<Foods>().m_foodItem.handleScoreDic);
-                        //FoodItems.Add(plates.Foods[i].GetComponent<Foods>().m_foodItem);
-                        FoodItems.Add(foodItem);
+                        if (plates.Foods[i].TryGetComponent<Foods>(out Foods foods))
+                        {
+                            FoodItem foodItem = new FoodItem();
+                            foodItem.foodName = plates.Foods[i].GetComponent<Foods>().m_foodItem.foodName;
+                            foodItem.handleScoreDic = new Dictionary<string, int>(plates.Foods[i].GetComponent<Foods>().m_foodItem.handleScoreDic);
+                            //FoodItems.Add(plates.Foods[i].GetComponent<Foods>().m_foodItem);
+                            FoodItems.Add(foodItem);
+                        }
+                        else if(plates.Foods[i].TryGetComponent<smallPlate>(out smallPlate smallPlate))
+                        {
+                            if(smallPlate.soupDict.Count>0)
+                            {
+                                foreach(string s in smallPlate.soupDict.Keys)
+                                {
+                                    FoodItem foodItem = new FoodItem();
+                                    foodItem.foodName = s;
+                                    FoodItems.Add(foodItem);
+                                    Debug.Log(s);
+                                }
+                                /*FoodItem foodItem = new FoodItem();
+                                foodItem.foodName = "ÌðÃæ½´";
+                                FoodItems.Add(foodItem);*/
+                            }
+                        }
+                        else if (plates.Foods[i].TryGetComponent<dough>(out dough dough))
+                        {
+                            FoodItem foodItem = new FoodItem();
+                            foodItem.foodName = dough.ObjName;
+                            FoodItems.Add(foodItem);
+                        }
                     }
                     ScoreController.Instance.DishCalc(FoodItems);
                     plates.Foods.Clear();

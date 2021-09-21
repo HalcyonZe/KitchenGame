@@ -10,7 +10,7 @@ public class YiDuXi : Dish
         _dishItem.dishname = "ÎÁÛ∆œ ";
 
         FoodItem foodItem1 = new FoodItem();
-        foodItem1.foodName= "streaky pork";
+        foodItem1.foodName= "÷Ì»‚";
         foodItem1.handleScoreDic.Add("blanching", 10);
         foodItem1.handleScoreDic.Add("salt", 5);
         foodItem1.handleScoreDic.Add("pepper", 5);

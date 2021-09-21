@@ -43,7 +43,7 @@ public class RollingPin : BasicObj
 
         transform.DOMove(new Vector3(Obj.transform.position.x, ObjY, Obj.transform.position.z), 0.3f).
             OnComplete(() => {
-                this.transform.localEulerAngles = new Vector3(0, 0, 0);
+                this.transform.localEulerAngles = new Vector3(0, 90, 0);
 
                 Cursor.lockState = CursorLockMode.None;
 
@@ -83,7 +83,7 @@ public class RollingPin : BasicObj
     {
         if (Input.GetMouseButtonUp(0))
         {
-            transform.DOShakePosition(0.3f, new Vector3(0, 0, 0.3f));
+            transform.DOShakePosition(0.3f, new Vector3(0.3f, 0, 0));
 
             Ray ray = new Ray(transform.position, -transform.up);
             RaycastHit hit;
