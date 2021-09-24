@@ -49,8 +49,8 @@ public class TimeController : Singleton<TimeController>
             hours = 0;
             timeSpend = 0;
         }
-        _timeText.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
-
+        //_timeText.text = string.Format("{0:D2}:{1:D2}:{2:D2}", hours, minutes, seconds);
+        _timeText.text = string.Format("{0:D2}:{1:D2}", hours, minutes);
         /*seconds += Time.fixedDeltaTime;       
         seconds = (int)timeSpend;
         minutes += (int)seconds / 60;       

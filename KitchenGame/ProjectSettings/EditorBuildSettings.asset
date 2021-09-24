@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Kitchen/MainScene/Kitchen.unity
     guid: e2746229faa03dc49a6c62fcca43a7c7
+  - enabled: 1
+    path: Assets/Kitchen/MainScene/Loading.unity
+    guid: 08c8655322b74fb408dff4d19ec29535
   m_configObjects: {}
