@@ -25,8 +25,9 @@ public class Planes : BasicObj
                 MouseSFM.Instance.PickObj.GetComponent<Rigidbody>().isKinematic = false;
                 MouseSFM.Instance.PickObj.GetComponent<Collider>().enabled = true;
                 MouseSFM.Instance.PickObj = null;
+                MouseSFM.Instance.SwitchState(MouseState.Nothing);
             });
-        MouseSFM.Instance.SwitchState(MouseState.Nothing);
+        //MouseSFM.Instance.SwitchState(MouseState.Nothing);
     }
 
 }

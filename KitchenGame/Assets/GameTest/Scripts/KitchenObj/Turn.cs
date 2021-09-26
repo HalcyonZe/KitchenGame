@@ -4,22 +4,23 @@ using UnityEngine;
 
 public class Turn : BasicObj
 {
-    private int turnNum = 1;
+    private int turnNum = 0;
 
     public override void PickObjs()
     {
         GameObject go = this.transform.GetChild(0).gameObject;
 
-        turnNum = ( turnNum + 1 ) % 3;
+        turnNum = ( turnNum + 1 ) % 2;
         
         switch (turnNum)
         {
             case 0:
-                go.SetActive(false);
+                //go.SetActive(false);
+                go.transform.localScale = new Vector3(13, 15, 13);
                 break;
             case 1:
                 go.SetActive(true);
-                go.transform.localScale = new Vector3(13, 15, 13);
+                go.transform.localScale = new Vector3(15, 20, 15);
                 break;
             case 2:
                 go.SetActive(true);
