@@ -9221,6 +9221,8 @@ MonoBehaviour:
     foodCrossMat: {fileID: 2100000, guid: 6588f1c4c951dd94993287aaed083ea1, type: 2}
   - foodName: "\u9EC4\u74DC"
     foodCrossMat: {fileID: 2100000, guid: 2eb7ada7f3fdf474a996b44093283798, type: 2}
+  - foodName: "\u70E4\u9E2D"
+    foodCrossMat: {fileID: 2100000, guid: 4db748a232d17c2479500a69f74b73f1, type: 2}
 --- !u!82 &522673915
 AudioSource:
   m_ObjectHideFlags: 0
